@@ -38,18 +38,43 @@ auth.get('/items/:id', (req,res)=>{
  header-> content-type:application/json
  body -> {"key":"value"}
  */
-
 const body_parser = require('body-parser');
+const cors = require('cors');
 auth.use(body_parser.json());
+auth.use(cors());
+
+// DECLARE JWT-secret #install jsonwebtoken#
+const JWT_Secret = 'your_secret_key';
+const jwt = require('jsonwebtoken');
+
+
+	
+var testUser = { email: 'kelvin@gmai.com', password: '1234'};
 
 auth.post("/auth", (req, res) => {
-    console.log(req.body.id,"id")
-    let ergebnis = {
-        id: req.body.id,
-        ff:  req.body.ff
-    };
+    //console.log(req.body.id,"id")
+    let user = {
+        email: req.body.email,
+        password:  req.body.password
+    };    
+    // res.send ( JSON.stringify ( user ) ); #doppeltes -send- vermeiden
 
-    res.send ( JSON.stringify ( ergebnis ) );
+    if(user.email === testUser.email && user.password === testUser.password) {        
+        let token = jwt.sign(user, JWT_Secret);
+        res.status(200).send({
+          signed_user: user,
+          token: token,          
+        });
+        console.log("du bist drinnen");
+        // res.sendFile(__dirname + "/index.html");
+    } 
+    else 
+    {}
+    
+        
+    
+
+
  });
 
 
