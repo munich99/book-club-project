@@ -1,0 +1,27 @@
+{
+  "name": "book-club",
+  "version": "0.1.0",
+  "description": "node server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munich99/book-club-project.git"
+  },
+  "keywords": [
+    "node",
+    "server",
+    "express"
+  ],
+  "author": "sebastian sawicz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/munich99/book-club-project/issues"
+  },
+  "homepage": "https://github.com/munich99/book-club-project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
