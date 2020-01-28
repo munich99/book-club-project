@@ -3,38 +3,38 @@
 console.log("Hello World!");
 
 const express = require('express');
-const auth = express();
+const app = express();
 
 // route handler
-auth.get('/json', (req,res)=>{
+app.get('/json', (req,res)=>{
     res.json({message:"hallo world!!"})    
 });
 
-auth.get('/',(req,res)=>{
+app.get('/',(req,res)=>{
     res.sendFile(__dirname + "/public/index.html");
 });
 
-auth.get('/auth',(req,res)=>{
+app.get('/auth',(req,res)=>{
     res.sendFile(__dirname + "/public/auth.html");
 });
 
-auth.get('/welcome',(req,res)=>{
+app.get('/welcome',(req,res)=>{
     res.sendFile(__dirname + "/public/welcome.html");
 });
 
-// start auth
+// start app
 const port = 4000;
-auth.listen(port, ()=>{
-    console.log(`auth listen at port ${port}`);    
+app.listen(port, ()=>{
+    console.log(`app listen at port ${port}`);    
 });
 
 // own apps
 let data = require('./own_modules/data');
-auth.get('/items', (req,res)=>{
+app.get('/items', (req,res)=>{
     res.json(data);        
 });
 
-auth.get('/items/:id', (req,res)=>{
+app.get('/items/:id', (req,res)=>{
     const itemId = req.params.id;
     const item = data.find(_item =>_item.id === itemId);
 
@@ -42,16 +42,16 @@ auth.get('/items/:id', (req,res)=>{
     else res.json({massage:"id nicht vorhanden"})  
 });
 
-// post auth
+// post app
 /* for #postman# dont forget
  header-> content-type:application/json
  body -> {"key":"value"}
  */
 const body_parser = require('body-parser');
 const cors = require('cors');
-auth.use(body_parser.json());
-// auth.use(body_parser.urlencoded({ extended: true })) ## for sending <form> without JSON
-auth.use(cors());
+app.use(body_parser.json());
+// app.use(body_parser.urlencoded({ extended: true })) ## for sending <form> without JSON
+app.use(cors());
 
 // DECLARE JWT-secret, but missing substrings #install jsonwebtoken#
 const JWT_Secret = 'your_secret_key';
@@ -59,7 +59,7 @@ const jwt = require('jsonwebtoken');
 	
 var testUser = { email: 'kelvin@gmail.com', password: '1234', vorname: 'Klaus'};
 
-auth.post("/auth", (req, res) => {
+app.post("/auth", (req, res) => {
     //console.log(req.body.password,"id")
     let user = {
         email: req.body.email,
