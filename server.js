@@ -21,9 +21,16 @@ app.use(cors());
 const couch = new NodeCouchDb();
 
 couch.listDatabases().then( (dbs) => {
-    console.log(dbs)
+    // console.log(dbs)
     }, err => {
-        // request error occured
+    console.log(err)
+});
+
+const dbName = "buch-club";
+const viewUrl = "_design/view4/_view/vorname";
+couch.get(dbName, viewUrl).then( ({data, headers, status}) => {
+    console.log(data, "GESAMT")
+    console.log(data.rows[0].value.vorname, "EINZEL WERTE") 
 });
 
 // route handler
