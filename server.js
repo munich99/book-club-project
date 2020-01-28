@@ -5,8 +5,12 @@ console.log("Hello World!");
 const express = require('express');
 const body_parser = require('body-parser');
 const cors = require('cors');
+const path =require('path')
 
 const app = express();
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true })) //({ extended: false }) for sending <form> without JSON
@@ -14,7 +18,8 @@ app.use(cors());
 
 // route handler
 app.get('/',(req,res)=>{
-    res.sendFile(__dirname + "/public/index.html");
+   // res.render('index') // only file.ejs ## app.set('view engine', 'ejs'); ##
+   res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get('/auth',(req,res)=>{
