@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        'use strict';
+        
+        document.addEventListener ( 'DOMContentLoaded', () => {
+            
+            // DOM-Elemente
+            let email = document.querySelector('#email');
+            let input2 = document.querySelector('#password');
+            let btn = document.querySelector('#btn');
+
+            btn.addEventListener ( 'click', () => {
+
+                let meinRequest = new Request(
+                    '/auth',
+                    {
+                        method: 'post',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify({                            
+                            email:  ( email.value ),
+                            password:  ( password.value ),
+                        })
+                    }
+                )
+
+                fetch( meinRequest ).then(
+                    erg => erg.json()
+                ).then(
+                    erg => token(erg)  
+                ).catch(
+                    err => console.error( err )
+                )
+            });
+
+            function token(usertoken){ 
+                if(usertoken.token) {
+                    localStorage.setItem("user", usertoken.signed_user.vorname);
+                    localStorage.setItem("token", usertoken.token); 
+                    window.location.replace("/welcome");
+                } 
+            }
+        })
+
+    </script>
+</head>
+<body>
+
+    <h1>hallo from express</h1>
+
+    <!--form method="post" action="/auth">
+        <input type="email" name="email">
+        <input type="password" name="password">
+        <input type="submit">
+    </form-->
+
+    <div id="eingabe">
+        <input id="email" type="email" name="email" />
+        <input id="password" type="password" name="password" />
+        <button id="btn">Absenden</button>
+    </div>
+    
+</body>
+</html>
