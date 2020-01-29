@@ -3,15 +3,40 @@
 console.log("Hello World!");
 
 const express = require('express');
+const body_parser = require('body-parser');
+const cors = require('cors');
+const path =require('path');
+const NodeCouchDb = require('node-couchdb');
+
 const app = express();
 
-// route handler
-app.get('/json', (req,res)=>{
-    res.json({message:"hallo world!!"})    
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(body_parser.json());
+app.use(body_parser.urlencoded({ extended: true })) //({ extended: false }) for sending <form> without JSON
+app.use(cors());
+
+// node-couchdb instance with default options
+const couch = new NodeCouchDb();
+
+couch.listDatabases().then( (dbs) => {
+    // console.log(dbs)
+    }, err => {
+    console.log(err)
 });
 
+const dbName = "buch-club";
+const viewUrl = "_design/view4/_view/vorname";
+couch.get(dbName, viewUrl).then( ({data, headers, status}) => {
+    console.log(data, "GESAMT")
+    console.log(data.rows[0].value.vorname, "EINZEL WERTE") 
+});
+
+// route handler
 app.get('/',(req,res)=>{
-    res.sendFile(__dirname + "/public/index.html");
+   // res.render('index') // only file.ejs ## app.set('view engine', 'ejs'); ##
+   res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get('/auth',(req,res)=>{
@@ -47,11 +72,6 @@ app.get('/items/:id', (req,res)=>{
  header-> content-type:application/json
  body -> {"key":"value"}
  */
-const body_parser = require('body-parser');
-const cors = require('cors');
-app.use(body_parser.json());
-// app.use(body_parser.urlencoded({ extended: true })) ## for sending <form> without JSON
-app.use(cors());
 
 // DECLARE JWT-secret, but missing substrings #install jsonwebtoken#
 const JWT_Secret = 'your_secret_key';
