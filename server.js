@@ -73,7 +73,6 @@ app.get('/items/:id', (req,res)=>{
  body -> {"key":"value"}
  */
 
-
 // DECLARE JWT-secret, but missing substrings #install jsonwebtoken#
 const JWT_Secret = 'your_secret_key';
 const jwt = require('jsonwebtoken');
