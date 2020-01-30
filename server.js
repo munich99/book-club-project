@@ -6,7 +6,7 @@ const express = require('express');
 const body_parser = require('body-parser');
 const cors = require('cors');
 const path =require('path');
-const NodeCouchDb = require('node-couchdb');
+// const NodeCouchDb = require('node-couchdb');
 
 const app = express();
 
@@ -17,21 +17,19 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true })) //({ extended: false }) for sending <form> without JSON
 app.use(cors());
 
-// node-couchdb instance with default options
-const couch = new NodeCouchDb();
 
-couch.listDatabases().then( (dbs) => {
-    // console.log(dbs)
-    }, err => {
-    console.log(err)
-});
 
-const dbName = "buch-club";
-const viewUrl = "_design/view4/_view/vorname";
-couch.get(dbName, viewUrl).then( ({data, headers, status}) => {
-    console.log(data, "GESAMT")
-    console.log(data.rows[0].value.vorname, "EINZEL WERTE") 
-});
+// takes data from db.index.js
+const circle = require('./db');
+
+// console.log(circle.dbArea);
+circle.dbArea().then(
+   console.log    
+)
+
+
+
+
 
 // route handler
 app.get('/',(req,res)=>{
