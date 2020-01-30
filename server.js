@@ -18,7 +18,6 @@ app.use(body_parser.urlencoded({ extended: true })) //({ extended: false }) for 
 app.use(cors());
 
 
-
 // takes data from db.index.js
 const circle = require('./db');
 
@@ -26,6 +25,11 @@ const circle = require('./db');
 circle.dbArea().then(
    console.log    
 )
+
+circle.dbUser().then( ({data, headers, status}) => {
+    console.log(data, "GESAMT")
+    console.log(data.rows[0].value.vorname, "EINZEL WERTE") 
+});
 
 
 
