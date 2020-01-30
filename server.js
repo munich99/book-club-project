@@ -22,15 +22,31 @@ app.use(cors());
 const circle = require('./db');
 
 // console.log(circle.dbArea);
-circle.dbArea().then(
-   console.log    
+/* circle.dbArea().then(
+   antwort ()    
 )
 
 circle.dbUser.then(
-    console.log
+    
+)
+*/
+
+let daten =[
+    circle.dbArea(), circle.dbUser()
+]
+Promise.all(daten).then(
+    // funktion
+    erg => {
+        erg.forEach(el => console.log(el))
+    }
 )
 
+/*
+then( ({data, headers, status}) => {    
+    return data.rows[0].value.vorname // Value from databases
+});
 
+*/
 
 
 
