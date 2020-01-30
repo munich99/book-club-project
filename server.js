@@ -26,10 +26,10 @@ circle.dbArea().then(
    console.log    
 )
 
-circle.dbUser().then( ({data, headers, status}) => {
-    console.log(data, "GESAMT")
-    console.log(data.rows[0].value.vorname, "EINZEL WERTE") 
-});
+circle.dbUser.then(
+    console.log
+)
+
 
 
 
