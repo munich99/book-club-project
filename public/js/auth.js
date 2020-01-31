@@ -62,10 +62,14 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         
        fetch( neuerUser ).then(
             erg => erg.json() //console.log(erg)    
-        ).then(
-            erg => token(erg)  
-        ).catch(
+        )
+        /*
+        .catch(
             err => console.error( err )
-        )        
+        )  
+        then(
+            erg => token(erg)  
+        ). */
+      
     });
 })

@@ -116,6 +116,21 @@ app.post("/auth", (req, res) => {
             }         
         });
     } else {
-    console.log("neuer user!!!");
+        console.log("neuer user!!!");
+
+        couch.uniqid().then( (ids) => { const id = ids[0]  // generate unique id
+
+            couch.insert(dbName, {
+                _id: id,
+                firstname: firstname,
+                email: email,
+                password: password
+            }).then(({data, headers, status}) => {
+                res.redirect('/');
+            }, err => {
+                res.status(403).send({ errorMessage: 'neuer user nicht möglich' });
+                console.log("neuer user nicht möglich");
+            });
+        } );
     }
  });
