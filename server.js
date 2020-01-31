@@ -29,10 +29,7 @@ couch.listDatabases().then( (dbs) => {
 
 const dbName = "buch-club";
 const viewUrl = "_design/view4/_view/vorname";
-couch.get(dbName, viewUrl).then( ({data, headers, status}) => {
-    console.log(data, "GESAMT")
-    console.log(data.rows[0].value.vorname, "EINZEL WERTE") 
-});
+
 
 // route handler
 app.get('/',(req,res)=>{
@@ -78,15 +75,31 @@ app.get('/items/:id', (req,res)=>{
 const JWT_Secret = 'your_secret_key';
 const jwt = require('jsonwebtoken');
 	
-var testUser = { email: 'kelvin@gmail.com', password: '1234', vorname: 'Klaus'};
+
 
 app.post("/auth", (req, res) => {
-    //console.log(req.body.password,"id")
+
     let user = {
         email: req.body.email,
         password:  req.body.password
-    };        
+    }; 
 
+    couch.get(dbName, viewUrl).then( ({data, headers, status}) => {
+        // console.log(user.email);
+         let array1 = data.rows;  
+         for(let i=0; i<= array1.length-1; i++) {
+            // console.log(array1[i].value.password,"datenbank"); 
+            // console.log(array1[i].value.email,"eigabe");
+             
+             if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
+                 console.log("passt!");  
+                 break;
+             } else {console.log("passt nicht")}
+         };
+     });
+    //console.log(req.body.password,"id")
+       
+/*
     if(user.email === testUser.email && user.password === testUser.password) {        
         let token = jwt.sign(user, JWT_Secret);
         res.status(200).send({
@@ -101,4 +114,6 @@ app.post("/auth", (req, res) => {
         });
         console.log("wer bist du"); 
       }  
+
+*/
  });
