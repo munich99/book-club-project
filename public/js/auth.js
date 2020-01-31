@@ -3,12 +3,16 @@
 document.addEventListener ( 'DOMContentLoaded', () => {
     
     // DOM-Elemente
-    // let email = document.querySelector('#email');
-    // let password = document.querySelector('#password');
-    // let btn = document.querySelector('#btn');
+    let email = document.querySelector('#email');
+    let password = document.querySelector('#password');
+    let btn = document.querySelector('#btn');
 
-    btn.addEventListener ( 'click', () => {
+    let btnNeueruser = document.querySelector('#btn-neueruser');
+    let firstnameNeueruser = document.querySelector('#firstname-neueruser');
+    let passwordNeueruser = document.querySelector('#password-neueruser');
+    let emailNeueruser = document.querySelector('#email-neueruser');
 
+    btn.addEventListener ( 'click', () => {        
         let meinRequest = new Request(
             '/auth',
             {
@@ -41,8 +45,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     }
 
     //  ##### neuen user anlegen #####
-    neueruser.addEventListener ( 'click', () => {
-        // alert("neuen user anlegen")
+    btnNeueruser.addEventListener ( 'click', () => {       
 
         let neuerUser = new Request(
             '/auth',
@@ -50,11 +53,19 @@ document.addEventListener ( 'DOMContentLoaded', () => {
                 method: 'post',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({                            
-                    email:  ( email.value ),
-                    password:  ( password.value ),
-                    firstname:  ( firstname.value )
+                    email:  ( emailNeueruser.value ),
+                    password:  ( passwordNeueruser.value ),
+                    firstname:  ( firstnameNeueruser.value )
                 })
             }
         )
+        
+       fetch( neuerUser ).then(
+            erg => erg.json() //console.log(erg)    
+        ).then(
+            erg => token(erg)  
+        ).catch(
+            err => console.error( err )
+        )        
     });
 })

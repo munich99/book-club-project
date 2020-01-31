@@ -79,39 +79,43 @@ const jwt = require('jsonwebtoken');
 
 app.post("/auth", (req, res) => {
 
+    console.log(req.body.firstname,"gsdgf");
+    
     let user = {
         email: req.body.email,
         password:  req.body.password,
         firstname: req.body.firstname
     }; 
 
-    if(!req.body.firstname){ console.log("vorname nicht vorhanden");}
-
-    couch.get(dbName, viewUrl).
-    then( ({data, headers, status}) => {
-        // console.log(user.email);
-         let array1 = data.rows; 
-         let forStatus = false; 
-         for(let i=0; i<= array1.length-1; i++) {
-            console.log(array1[i].value.password,"datenbank"); 
-            console.log(array1[i].value.email,"eingabe");
-            console.log(user, "user")
-             
-             if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
-                 console.log("passt!");  
-                 let token = jwt.sign(user, JWT_Secret);
-                 res.status(200).send({
-                   signed_user: array1[i],
-                   token: token,          
-                 });
-                 forStatus = true;
-                 console.log("du bist drinnen");
-                 break;
-             }  
-        }
-        if(!forStatus) {
-            res.status(403).send({ errorMessage: 'nicht bekannt' });
-             console.log("nicht bekannt");
-         }         
-    });
+    if(!req.body.firstname){     
+        couch.get(dbName, viewUrl).
+        then( ({data, headers, status}) => {
+            // console.log(user.email);
+            let array1 = data.rows; 
+            let forStatus = false; 
+            for(let i=0; i<= array1.length-1; i++) {
+                console.log(array1[i].value.password,"datenbank"); 
+                console.log(array1[i].value.email,"eingabe");
+                console.log(user, "user")
+                
+                if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
+                    console.log("passt!");  
+                    let token = jwt.sign(user, JWT_Secret);
+                    res.status(200).send({
+                    signed_user: array1[i],
+                    token: token,          
+                    });
+                    forStatus = true;
+                    console.log("du bist drinnen");
+                    break;
+                }  
+            }
+            if(!forStatus) {
+                res.status(403).send({ errorMessage: 'nicht bekannt' });
+                console.log("nicht bekannt");
+            }         
+        });
+    } else {
+    console.log("neuer user!!!");
+    }
  });
