@@ -73,8 +73,7 @@ app.get('/items/:id', (req,res)=>{
 
 // DECLARE JWT-secret, but missing substrings #install jsonwebtoken#
 const JWT_Secret = 'your_secret_key';
-const jwt = require('jsonwebtoken');
-	
+const jwt = require('jsonwebtoken');	
 
 
 app.post("/auth", (req, res) => {
@@ -84,7 +83,8 @@ app.post("/auth", (req, res) => {
         password:  req.body.password
     }; 
 
-    couch.get(dbName, viewUrl).then( ({data, headers, status}) => {
+    couch.get(dbName, viewUrl).
+    then( ({data, headers, status}) => {
         // console.log(user.email);
          let array1 = data.rows; 
          let forStatus = false; 
@@ -96,7 +96,7 @@ app.post("/auth", (req, res) => {
                  console.log("passt!");  
                  let token = jwt.sign(user, JWT_Secret);
                  res.status(200).send({
-                   signed_user: array1,
+                   signed_user: array1[i],
                    token: token,          
                  });
                  forStatus = true
@@ -108,5 +108,4 @@ app.post("/auth", (req, res) => {
              console.log("ok");
          }         
     });
-
  });

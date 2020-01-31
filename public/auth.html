@@ -31,7 +31,7 @@
                 )
 
                 fetch( meinRequest ).then(
-                    erg => erg.json()
+                    erg => erg.json() //console.log(erg)    
                 ).then(
                     erg => token(erg)  
                 ).catch(
@@ -40,8 +40,10 @@
             });
 
             function token(usertoken){ 
+                console.log(usertoken, "wertwetr");
+                                
                 if(usertoken.token) {
-                    localStorage.setItem("user", usertoken.signed_user.vorname);
+                    localStorage.setItem("user", usertoken.signed_user.value.vorname);
                     localStorage.setItem("token", usertoken.token); 
                     window.location.replace("/welcome");
                 } 
