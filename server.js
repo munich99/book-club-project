@@ -89,8 +89,9 @@ app.post("/auth", (req, res) => {
          let array1 = data.rows; 
          let forStatus = false; 
          for(let i=0; i<= array1.length-1; i++) {
-            // console.log(array1[i].value.password,"datenbank"); 
-            // console.log(array1[i].value.email,"eigabe");
+            console.log(array1[i].value.password,"datenbank"); 
+            console.log(array1[i].value.email,"eingabe");
+            console.log(user, "user")
              
              if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
                  console.log("passt!");  
@@ -99,13 +100,14 @@ app.post("/auth", (req, res) => {
                    signed_user: array1[i],
                    token: token,          
                  });
-                 forStatus = true
+                 forStatus = true;
+                 console.log("du bist drinnen");
                  break;
              }  
         }
         if(!forStatus) {
             res.status(403).send({ errorMessage: 'nicht bekannt' });
-             console.log("ok");
+             console.log("nicht bekannt");
          }         
     });
  });
