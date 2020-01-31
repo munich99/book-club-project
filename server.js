@@ -81,8 +81,11 @@ app.post("/auth", (req, res) => {
 
     let user = {
         email: req.body.email,
-        password:  req.body.password
+        password:  req.body.password,
+        firstname: req.body.firstname
     }; 
+
+    if(!req.body.firstname){ console.log("vorname nicht vorhanden");}
 
     couch.get(dbName, viewUrl).
     then( ({data, headers, status}) => {

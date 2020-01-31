@@ -3,9 +3,9 @@
 document.addEventListener ( 'DOMContentLoaded', () => {
     
     // DOM-Elemente
-    let email = document.querySelector('#email');
-    let input2 = document.querySelector('#password');
-    let btn = document.querySelector('#btn');
+    // let email = document.querySelector('#email');
+    // let password = document.querySelector('#password');
+    // let btn = document.querySelector('#btn');
 
     btn.addEventListener ( 'click', () => {
 
@@ -34,9 +34,27 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         console.log(usertoken, "wertwetr");
                         
         if(usertoken.token) {
-            localStorage.setItem("user", usertoken.signed_user.value.vorname);
+            localStorage.setItem("user", usertoken.signed_user.value.firstname);
             localStorage.setItem("token", usertoken.token); 
             window.location.replace("/welcome");
         } 
     }
+
+    //  ##### neuen user anlegen #####
+    neueruser.addEventListener ( 'click', () => {
+        // alert("neuen user anlegen")
+
+        let neuerUser = new Request(
+            '/auth',
+            {
+                method: 'post',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({                            
+                    email:  ( email.value ),
+                    password:  ( password.value ),
+                    firstname:  ( firstname.value )
+                })
+            }
+        )
+    });
 })
