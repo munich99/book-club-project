@@ -20,3 +20,5 @@ const zeichen = ()=> {
     /// einfach foo holen
     console.log(foo);
 }
+
+
