@@ -86,34 +86,27 @@ app.post("/auth", (req, res) => {
 
     couch.get(dbName, viewUrl).then( ({data, headers, status}) => {
         // console.log(user.email);
-         let array1 = data.rows;  
+         let array1 = data.rows; 
+         let forStatus = false; 
          for(let i=0; i<= array1.length-1; i++) {
             // console.log(array1[i].value.password,"datenbank"); 
             // console.log(array1[i].value.email,"eigabe");
              
              if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
                  console.log("passt!");  
+                 let token = jwt.sign(user, JWT_Secret);
+                 res.status(200).send({
+                   signed_user: array1,
+                   token: token,          
+                 });
+                 forStatus = true
                  break;
-             } else {console.log("passt nicht")}
-         };
-     });
-    //console.log(req.body.password,"id")
-       
-/*
-    if(user.email === testUser.email && user.password === testUser.password) {        
-        let token = jwt.sign(user, JWT_Secret);
-        res.status(200).send({
-          signed_user: testUser,
-          token: token,          
-        });
-        console.log("du bist drinnen");       
-    } 
-    else {
-        res.status(403).send({
-          errorMessage: 'Authorisation required!'
-        });
-        console.log("wer bist du"); 
-      }  
+             }  
+        }
+        if(!forStatus) {
+            res.status(403).send({ errorMessage: 'nicht bekannt' });
+             console.log("ok");
+         }         
+    });
 
-*/
  });
