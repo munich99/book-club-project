@@ -6,51 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <script>
-        'use strict';
-        
-        document.addEventListener ( 'DOMContentLoaded', () => {
-            
-            // DOM-Elemente
-            let email = document.querySelector('#email');
-            let input2 = document.querySelector('#password');
-            let btn = document.querySelector('#btn');
+    <script language="javascript" type="text/javascript" src="./js/auth.js"></script>
 
-            btn.addEventListener ( 'click', () => {
-
-                let meinRequest = new Request(
-                    '/auth',
-                    {
-                        method: 'post',
-                        headers: { 'content-type': 'application/json' },
-                        body: JSON.stringify({                            
-                            email:  ( email.value ),
-                            password:  ( password.value ),
-                        })
-                    }
-                )
-
-                fetch( meinRequest ).then(
-                    erg => erg.json() //console.log(erg)    
-                ).then(
-                    erg => token(erg)  
-                ).catch(
-                    err => console.error( err )
-                )
-            });
-
-            function token(usertoken){ 
-                console.log(usertoken, "wertwetr");
-                                
-                if(usertoken.token) {
-                    localStorage.setItem("user", usertoken.signed_user.value.vorname);
-                    localStorage.setItem("token", usertoken.token); 
-                    window.location.replace("/welcome");
-                } 
-            }
-        })
-
-    </script>
 </head>
 <body>
 
@@ -66,6 +23,14 @@
         <input id="email" type="email" name="email" />
         <input id="password" type="password" name="password" />
         <button id="btn">Absenden</button>
+    </div>
+
+    <h1>neu hier? bitte registrieren</h1>
+    <div id="neuer-user">
+        <input id="firstname-neueruser" type="text" name="firstname-neueruser" placeholder="vorname" />
+        <input id="email-neueruser" type="email" name="email" placeholder="email" />
+        <input id="password-neueruser" type="password" name="password" placeholder="passwort" />
+        <button id="btn-neueruser">Absenden</button>
     </div>
     
 </body>
