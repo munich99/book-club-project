@@ -77,9 +77,7 @@ const JWT_Secret = 'your_secret_key';
 const jwt = require('jsonwebtoken');	
 
 
-app.post("/auth", (req, res) => {
-
-    //console.log(req.body.firstname,"gsdgf");
+app.post("/auth", (req, res) => {    
     
     let user = {
         email: req.body.email,
@@ -88,7 +86,9 @@ app.post("/auth", (req, res) => {
     }; 
     let token = jwt.sign(user, JWT_Secret);
 
-    if(!req.body.firstname){     
+    if(!req.body.firstname){    
+        console.log("wirklich?");
+         
         couch.get(dbName, viewUrl).
         then( ({data, headers, status}) => {
             

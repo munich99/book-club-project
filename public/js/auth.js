@@ -4,13 +4,25 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     
     // DOM-Elemente
     let email = document.querySelector('#email');
-    let password = document.querySelector('#password');
+    let password = document.querySelector('#password');    
     let btn = document.querySelector('#btn');
 
-    let btnNeueruser = document.querySelector('#btn-neueruser');
-    let firstnameNeueruser = document.querySelector('#firstname-neueruser');
-    let passwordNeueruser = document.querySelector('#password-neueruser');
-    let emailNeueruser = document.querySelector('#email-neueruser');
+    let linkNeueruser = document.querySelector('#link-neueruser');
+    let firstname=[];
+
+    linkNeueruser.addEventListener ( 'click', () => {
+        let node = document.createElement("input");                
+        let textnode = document.createTextNode("Water"); 
+        node.appendChild(textnode);                             
+        let newUser = document.getElementById("eingabe");
+        newUser.insertBefore(node, newUser.childNodes[0]);  
+        
+        node.setAttribute("id", "firstname");
+        node.setAttribute("name", "firstname");
+        node.setAttribute("placeholder", "Vorname");
+
+        firstname = document.querySelector('#firstname');
+    });
 
     function newRquest() {
         return new Request(
@@ -21,11 +33,14 @@ document.addEventListener ( 'DOMContentLoaded', () => {
                 body: JSON.stringify({                            
                     email:  ( email.value ),
                     password:  ( password.value ),
+                    firstname:  ( firstname.value )                   
                 })
             }
         )
     }
 
+    console.log(email,"was ist das");
+    
 
     btn.addEventListener ( 'click', () => {        
         let meinRequest = newRquest();
@@ -42,36 +57,11 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     function token(usertoken){ 
         console.log(usertoken, "wertwetr");
                         
-        if(usertoken.token) {
-            localStorage.setItem("user", usertoken.signed_user.value.firstname);
+        if(usertoken.token) {      
             localStorage.setItem("token", usertoken.token); 
+            localStorage.setItem("user", usertoken.signed_user.value.firstname);
             window.location.replace("/welcome");
         } 
     }
 
-    //  ##### neuen user anlegen #####
-    btnNeueruser.addEventListener ( 'click', () => {       
-
-        let neuerUser = new Request(
-            '/auth',
-            {
-                method: 'post',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify({                            
-                    email:  ( emailNeueruser.value ),
-                    password:  ( passwordNeueruser.value ),
-                    firstname:  ( firstnameNeueruser.value )
-                })
-            }
-        )
-        
-       fetch( neuerUser ).then(
-            erg => erg.json() //console.log(erg)    
-        ).then(
-            erg => token(erg)  
-        ).catch(
-            err => console.error( err )
-        )
-      
-    });
 })
