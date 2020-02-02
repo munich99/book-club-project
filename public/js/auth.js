@@ -12,8 +12,8 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     let passwordNeueruser = document.querySelector('#password-neueruser');
     let emailNeueruser = document.querySelector('#email-neueruser');
 
-    btn.addEventListener ( 'click', () => {        
-        let meinRequest = new Request(
+    function newRquest() {
+        return new Request(
             '/auth',
             {
                 method: 'post',
@@ -24,6 +24,11 @@ document.addEventListener ( 'DOMContentLoaded', () => {
                 })
             }
         )
+    }
+
+
+    btn.addEventListener ( 'click', () => {        
+        let meinRequest = newRquest();
 
         fetch( meinRequest ).then(
             erg => erg.json() //console.log(erg)    
@@ -62,14 +67,11 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         
        fetch( neuerUser ).then(
             erg => erg.json() //console.log(erg)    
-        )
-        /*
-        .catch(
-            err => console.error( err )
-        )  
-        then(
+        ).then(
             erg => token(erg)  
-        ). */
+        ).catch(
+            err => console.error( err )
+        )
       
     });
 })
