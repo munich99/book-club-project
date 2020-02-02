@@ -86,8 +86,7 @@ app.post("/auth", (req, res) => {
     }; 
     let token = jwt.sign(user, JWT_Secret);
 
-    if(!req.body.firstname){    
-        console.log("wirklich?");
+    if(!req.body.firstname){            
          
         couch.get(dbName, viewUrl).
         then( ({data, headers, status}) => {
@@ -113,8 +112,7 @@ app.post("/auth", (req, res) => {
                 console.log("nicht bekannt");
             }         
         });
-    } else {
-        console.log(req.body.firstname, "firstname-neueruser!!!");
+    } else {        
 
         couch.uniqid().then( (ids) => { 
             const id = ids[0]  // generate unique id

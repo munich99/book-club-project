@@ -23,6 +23,19 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
         firstname = document.querySelector('#firstname');
     });
+    
+
+    btn.addEventListener ( 'click', () => {        
+        let meinRequest = newRquest();
+
+        fetch( meinRequest ).then(
+            erg => erg.json() //console.log(erg)    
+        ).then(
+            erg => token(erg)  
+        ).catch(
+            err => console.error( err )
+        )
+    });
 
     function newRquest() {
         return new Request(
@@ -38,21 +51,6 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             }
         )
     }
-
-    console.log(email,"was ist das");
-    
-
-    btn.addEventListener ( 'click', () => {        
-        let meinRequest = newRquest();
-
-        fetch( meinRequest ).then(
-            erg => erg.json() //console.log(erg)    
-        ).then(
-            erg => token(erg)  
-        ).catch(
-            err => console.error( err )
-        )
-    });
 
     function token(usertoken){ 
         console.log(usertoken, "wertwetr");
