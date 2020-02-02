@@ -116,15 +116,15 @@ app.post("/auth", (req, res) => {
             }         
         });
     } else {
-        console.log("neuer user!!!");
+        console.log(req.body.firstname, "firstname-neueruser!!!");
 
-        couch.uniqid().then( (ids) => { const id = ids[0]  // generate unique id
-
+        couch.uniqid().then( (ids) => { 
+            const id = ids[0]  // generate unique id
             couch.insert(dbName, {
                 _id: id,
-                firstname: firstname,
-                email: email,
-                password: password
+                firstname: req.body.firstname,
+                email: req.body.email,
+                password: req.body.password
             }).then(({data, headers, status}) => {
                 res.redirect('/');
             }, err => {
