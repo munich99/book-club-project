@@ -25,7 +25,30 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		document.getElementById("deine-buecher-liste").appendChild(node);		
 	 });
 
-	 btn.addEventListener ( 'click', () => {        
+	 // const matches = document.getElementById("eingabe").querySelectorAll("input");
+	 //console.log(matches,"values");
+	 //console.log(matches[0].value,"vv");
+	// matches.forEach(element => console.log(element.value),"valueee");
+	 
+	 
+
+	function validateForm() {
+		let matches = document.getElementById("eingabe").querySelectorAll("input");		
+		matches.forEach(element => { 
+			if (!element.validity.valid) element.focus();	
+		});
+
+	
+	}
+
+	 btn.addEventListener ( 'click', () => {  
+		validateForm()
+
+		!localStorage.getItem("books-new") ? console.log("truee") : console.log("falsee");
+		  
+		
+
+
        /* let meinRequest = newRquest();
 
         fetch( meinRequest ).then(
@@ -36,7 +59,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             err => console.error( err )
 		)
 		*/
-		alert("funkt");
+		
     });
 
 });

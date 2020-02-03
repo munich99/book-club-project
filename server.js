@@ -46,6 +46,10 @@ app.get('/auth',(req,res)=>{
 });
 
 app.get('/welcome',(req,res)=>{
+    //if(user.email){
+        //couch.get(dbName, viewUrl).
+        //then( ({data, headers, status}) => {});
+    //}
     res.sendFile(__dirname + "/public/welcome.html");
 });
 
