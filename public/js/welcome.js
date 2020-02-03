@@ -2,7 +2,9 @@
 console.log(localStorage.getItem("user"));
 console.log(localStorage.getItem("token"));  
 
-let obj=JSON.parse(localStorage.getItem("books"));
+
+let obj = JSON.parse(localStorage.getItem("books"));
+console.log(obj,"books");
  
 
 document.addEventListener ( 'DOMContentLoaded', () => {

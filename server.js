@@ -105,7 +105,7 @@ app.post("/auth", (req, res) => {
                     });
                     forStatus = true;
                     console.log("du bist drinnen");
-                    console.log(array1[i],"das ganze array");
+                    console.log(array1[i].value.books,"books");
                     break;
                 }  
             }
