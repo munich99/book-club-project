@@ -28,37 +28,62 @@ couch.listDatabases().then( (dbs) => {
     console.log(err)
 });
 
-const dbName = "buch-club";
-const viewUrl = "_design/view4/_view/vorname";
+let dbName;
+let viewUrl;
+let Signed_user;
 
 
 // route handler
-app.get('/',(req,res)=>{
+app.get('/',(req,res) => {
    // res.render('index') // only file.ejs ## app.set('view engine', 'ejs'); ##
    res.sendFile(__dirname + "/public/index.html");
 });
 
-app.get('/auth',(req,res)=>{
+app.get('/auth',(req,res) => {
     res.sendFile(__dirname + "/public/auth.html");
 });
 
-app.get('/welcome',(req,res)=>{
+// ##### USER PAGE ######
+app.get('/welcome',(req,res) => {
+
+    dbName = "book";
+    viewUrl = "_design/title/_view/title";
+
+    couch.get(dbName, viewUrl).
+        then( ({data, headers, status}) => {
+            let array1 = data.rows;
+
+            array1.forEach(element => {
+                console.log(element.value.read,"value")
+
+               for (let k in element.value.read) {
+                    if (element.value.read[k] === Signed_user) {
+                        console.log("endlich!!!!!!")
+                       // return true;
+                    }
+                } 
+
+
+            });
+
+        });
+
     res.sendFile(__dirname + "/public/welcome.html");
 });
 
 // start app
 const port = 4000;
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`app listen at port ${port}`);    
 });
 
 // own apps
 let data = require('./own_modules/data');
-app.get('/items', (req,res)=>{
+app.get('/items', (req,res) => {
     res.json(data);        
 });
 
-app.get('/items/:id', (req,res)=>{
+app.get('/items/:id', (req,res) => {
     const itemId = req.params.id;
     const item = data.find(_item =>_item.id === itemId);
 
@@ -77,14 +102,19 @@ const JWT_Secret = 'your_secret_key';
 const jwt = require('jsonwebtoken');	
 
 
-app.post("/auth", (req, res) => {    
+
+app.post("/auth", (req, res) => {   
     
+    dbName = "buch-club";
+    viewUrl = "_design/view4/_view/vorname";
+
     let user = {
         email: req.body.email,
         password:  req.body.password,
         firstname: req.body.firstname
     }; 
     let token = jwt.sign(user, JWT_Secret);
+
 
     if(!req.body.firstname){            
          
@@ -102,8 +132,8 @@ app.post("/auth", (req, res) => {
                     token: token,          
                     });
                     forStatus = true;
-                    console.log("du bist drinnen");
-                    console.log(array1[i],"das ganze array");
+                    console.log("du bist drinnen");   
+                    Signed_user = array1[i].value.email;    
                     break;
                 }  
             }
@@ -123,7 +153,7 @@ app.post("/auth", (req, res) => {
                 password: req.body.password
             }).then(({data, headers, status}) => {
                 console.log(data, "neuer user möglich!!");
-                let Signed_user = {value:user};
+                Signed_user = {value:user};
                 res.status(200).send({
                     signed_user:Signed_user,
                     token: token,          
