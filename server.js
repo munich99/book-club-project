@@ -11,6 +11,9 @@ const NodeCouchDb = require('node-couchdb');
 
 const app = express();
 
+const JWT_Secret = 'your_secret_key';
+const jwt = require('jsonwebtoken');
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -73,8 +76,7 @@ app.get('/items/:id', (req,res)=>{
  */
 
 // DECLARE JWT-secret, but missing substrings #install jsonwebtoken#
-const JWT_Secret = 'your_secret_key';
-const jwt = require('jsonwebtoken');	
+	
 
 
 app.post("/auth", (req, res) => {    
@@ -99,7 +101,7 @@ app.post("/auth", (req, res) => {
                     console.log("passt!");                      
                     res.status(200).send({
                     signed_user: array1[i],
-                    token: token,          
+                    token: token,                          
                     });
                     forStatus = true;
                     console.log("du bist drinnen");
