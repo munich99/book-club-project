@@ -2,6 +2,19 @@
 
 const userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
 
+var person = {
+	firstname:"John",
+	lastname:"Doe",
+	age:50,
+	eyecolor:"blue"
+  };
+  
+  person.nationality = "English";
+
+  console.log(person);
+  
+
+
 document.addEventListener ( 'DOMContentLoaded', () => {
 	// DOM-Elemente 
 	let bookGenre = document.querySelector('#book-genre');
@@ -39,12 +52,6 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
 		let newBooks = {[bookAuthor.value]:bookTitle.value};
 		console.log(newBooks, "neue bücher");
-		
-
-		
-		
-
-		
 
        	let meinRequest = newRquest();
 
@@ -61,22 +68,9 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	function newRquest() {
         return new Request(
             ( '/welcome/:' + userGesamtIngesamt.id ),
-            {
-                method: 'post',
+            {   method: 'post',
 				headers: { 'content-type': 'application/json' },
 				body: JSON.stringify(userGesamtIngesamt)
-
-				/*
-                body: JSON.stringify({                            
-                    booktitle:	bookTitle.value,
-                    bookauthor: bookAuthor.value,
-					bookgenre:	bookGenre.value,
-					rev:        userGesamtIngesamt.value.rev          
-				})
-				*/
-				
-
-
             }
         )
 	}
