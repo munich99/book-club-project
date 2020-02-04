@@ -54,8 +54,6 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
         fetch( meinRequest ).then(
             erg => erg.json() //console.log(erg)    
-        ).then(
-            erg => new_book(erg)  
         ).catch(
             err => console.error( err )
 		)		

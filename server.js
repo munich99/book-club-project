@@ -151,7 +151,7 @@ app.post("/welcome/:id", (req, res) => {
     };   
     
     res.status(200).send({
-        new_book: "new"                
+        new_book: {"new":22}               
         });
         /* 
         couch.get(dbName, viewUrl).
