@@ -45,12 +45,10 @@ document.addEventListener ( 'DOMContentLoaded', () => {
        	let meinRequest = newRquest();
 
         fetch( meinRequest ).then(
-            erg => erg.json() //console.log(erg)    
+            erg => token(erg)     
         ).then(
 			localStorage.setItem("userGesamt", JSON.stringify(userGesamtIngesamt))
-		).then(
-            erg => token(erg)  
-        ).catch(
+		).catch(
             err => console.error( err )
 		);
 			
@@ -67,12 +65,12 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         )
 	}
 
-	function token(usertoken){  
-		// local store ändern
-            
-    	window.location.replace("/welcome");
-  
-    }
+	function token(){  
+		// local store ändern            
+    	window.location.replace("/welcome");  
+	}
+	
+	function error( err ){ console.log(err)}
 	
 
 

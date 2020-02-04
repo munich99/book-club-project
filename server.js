@@ -161,15 +161,15 @@ app.post("/welcome/:id", (req, res) => {
         password:       userbook.password,
         readedBooks:    userbook.books
     }).then(({data, headers, status}) => {            
-        res.status(200).send('every thing ok');
-        console.log("eintrag geändert!!");
+        res.status(200).send('buch angelegt');
+        console.log("eintrag geändert und gesendet!!");
                 
     }, err => {
         res.status(403).send('every thing ok');
         console.log("buch anlegen nicht möglich");
     })
     /*.than(
-        updated store
+        
 
     );*/
 
