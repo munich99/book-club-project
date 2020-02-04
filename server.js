@@ -86,13 +86,11 @@ app.post("/auth", (req, res) => {
     }; 
     let token = jwt.sign(user, JWT_Secret);
 
-    if(!req.body.firstname){            
+    if(!req.body.firstname){        
          
         couch.get(dbName, viewUrl).
-        then( ({data, headers, status}) => {
-            
-            let array1 = data.rows; 
-            console.log(array1);             
+        then( ({data, headers, status}) => {            
+            let array1 = data.rows;                        
             let forStatus = false;             
             for(let i=0; i<= array1.length-1; i++) {
                 
@@ -102,9 +100,7 @@ app.post("/auth", (req, res) => {
                     signed_user: array1[i],
                     token: token,                          
                     });
-                    forStatus = true;
-                    
-                    console.log(array1[i].value.books,"books");
+                    forStatus = true;     
                     break;
                 }  
             }
@@ -123,7 +119,7 @@ app.post("/auth", (req, res) => {
                 email: req.body.email,
                 password: req.body.password
             }).then(({data, headers, status}) => {
-                console.log(data, "neuer user möglich!!");
+                // console.log(data, "neuer user möglich!!");
                 let Signed_user = {value:user};
                 res.status(200).send({
                     signed_user:Signed_user,
@@ -139,9 +135,7 @@ app.post("/auth", (req, res) => {
 });
 
 // new book -- new router
-app.post("/welcome/:id", (req, res) => {  
-    console.log(req.body, "ois");
-    console.log(req.body.value.rev, "-rev-");
+app.post("/welcome/:id", (req, res) => { 
     const itemId = req.params.id;
     let userbook = {
         id:itemId.substr(1), // remove : from (/:id)
@@ -152,7 +146,7 @@ app.post("/welcome/:id", (req, res) => {
         books:          req.body.value.books
     };       
     
-        // note that "doc" must have both "_id" and "_rev" fields
+    // note that "doc" must have both "_id" and "_rev" fields
     couch.update(dbName, {
         _id:           `${userbook.id}`,  // ${} important to set id in quotes
         _rev:          `${userbook.rev}`,
@@ -160,17 +154,18 @@ app.post("/welcome/:id", (req, res) => {
         email:          userbook.email,
         password:       userbook.password,
         readedBooks:    userbook.books
-    }).then(({data, headers, status}) => {            
-        res.status(200).send('buch angelegt');
+    }).then(
+        couch.get(dbName, userbook.id)
+    ).then(({data, headers, status}) => {         
+        console.log(data, "data back");
+        res.status(200).send({
+            signed_user: data.rev                      
+            });                   
+        
         console.log("eintrag geändert und gesendet!!");
                 
     }, err => {
         res.status(403).send('every thing ok');
         console.log("buch anlegen nicht möglich");
     })
-    /*.than(
-        
-
-    );*/
-
 });

@@ -42,13 +42,22 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		// let newBooks = {[bookAuthor.value]:bookTitle.value};
 		console.log(userGesamtIngesamt.value.books, "neue bücher");
 
-       	let meinRequest = newRquest();
+		   let meinRequest = newRquest();
+		   
+		   /*
+		           fetch( meinRequest ).then(
+            erg => erg.json() //console.log(erg)    
+        ).then(
+            erg => token(erg)  
+        ).catch(
+            err => fehler()
+        ) */
 
         fetch( meinRequest ).then(
-            erg => token(erg)     
+			erg => erg.json() //console.log(erg)    
         ).then(
-			localStorage.setItem("userGesamt", JSON.stringify(userGesamtIngesamt))
-		).catch(
+            erg => token(erg)     
+        ).catch(
             err => console.error( err )
 		);
 			
@@ -65,9 +74,16 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         )
 	}
 
-	function token(){  
-		// local store ändern            
-    	window.location.replace("/welcome");  
+	function token(erg){  
+		// local store ändern     
+		
+		/*.then(
+			localStorage.setItem("userGesamt", JSON.stringify(userGesamtIngesamt)) */
+
+		console.log(erg,"erge");
+			
+
+    	// window.location.replace("/welcome");  
 	}
 	
 	function error( err ){ console.log(err)}
