@@ -2,19 +2,6 @@
 
 const userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
 
-var person = {
-	firstname:"John",
-	lastname:"Doe",
-	age:50,
-	eyecolor:"blue"
-  };
-  
-  person.nationality = "English";
-
-  console.log(person);
-  
-
-
 document.addEventListener ( 'DOMContentLoaded', () => {
 	// DOM-Elemente 
 	let bookGenre = document.querySelector('#book-genre');
@@ -26,7 +13,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		
 	Object.keys(userGesamtIngesamt.value.books).forEach(key => {
 		let node = document.createElement("li");                
-		let textnode = document.createTextNode(`${userGesamtIngesamt.value.books[key]}`); 
+		let textnode = document.createTextNode(`${userGesamtIngesamt.value.books[key]} `); 
 		node.appendChild(textnode);
 
 		let newElement = document.createElement("span");
@@ -48,20 +35,25 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
 
 	btn.addEventListener ( 'click', () => {  
-		validateForm();		
-
-		let newBooks = {[bookAuthor.value]:bookTitle.value};
-		console.log(newBooks, "neue bücher");
+		validateForm();	
+		let b1 = bookAuthor.value;
+		userGesamtIngesamt.value.books[b1] = bookTitle.value;
+		
+		// let newBooks = {[bookAuthor.value]:bookTitle.value};
+		console.log(userGesamtIngesamt.value.books, "neue bücher");
 
        	let meinRequest = newRquest();
 
         fetch( meinRequest ).then(
             erg => erg.json() //console.log(erg)    
         ).then(
+			localStorage.setItem("userGesamt", JSON.stringify(userGesamtIngesamt))
+		).then(
             erg => token(erg)  
         ).catch(
             err => console.error( err )
-		)		
+		);
+			
 		
 	});
 	
@@ -78,7 +70,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	function token(usertoken){  
  
             
-         //   window.location.replace("/welcome");
+    	window.location.replace("/welcome");
   
     }
 	
