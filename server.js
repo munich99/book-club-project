@@ -142,7 +142,7 @@ app.post("/auth", (req, res) => {
 // new book
 app.post("/welcome/:id", (req, res) => {  
     const itemId = req.params.id;
-    let user = {
+    let userbook = {
         id:itemId, 
         rev: req.body.rev,
         booktitle:	req.body.booktitle,
@@ -150,7 +150,7 @@ app.post("/welcome/:id", (req, res) => {
         bookgenre:	req.body.bookgenre 
     };   
 
-    console.log(user, "angekommen und buch");
+    console.log(userbook, "angekommen und buch");
 
             /*/ note that "doc" must have both "_id" and "_rev" fields
             couch.update(dbName, {

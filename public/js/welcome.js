@@ -2,6 +2,7 @@
 console.log(localStorage.getItem("user"));
 console.log(localStorage.getItem("token"));  
 console.log(localStorage.getItem("id"));
+console.log(localStorage.getItem("rev"),"rev");
 
 let obj = JSON.parse(localStorage.getItem("books"));
 console.log(obj,"books");

@@ -54,13 +54,12 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
     function token(usertoken){         
                         
-        if(usertoken.token) {      
+        if(usertoken.token) { 
             localStorage.setItem("token", usertoken.token); 
             localStorage.setItem("user", usertoken.signed_user.value.firstname);
             localStorage.setItem("id", usertoken.signed_user.id);
-            localStorage.setItem("rev", usertoken.signed_user.rev);
+            localStorage.setItem("rev", usertoken.signed_user.value.rev);
             localStorage.setItem("books", JSON.stringify(usertoken.signed_user.value.books)); 
-            
             window.location.replace("/welcome");
         } 
     }
