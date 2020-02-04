@@ -1,12 +1,6 @@
-'use strict';    
-console.log(localStorage.getItem("user"));
-console.log(localStorage.getItem("token"));  
-console.log(localStorage.getItem("id"));
-console.log(localStorage.getItem("rev"),"rev");
+'use strict';
 
-let obj = JSON.parse(localStorage.getItem("books"));
-console.log(obj,"books");
- 
+const userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
 
 document.addEventListener ( 'DOMContentLoaded', () => {
 	// DOM-Elemente 
@@ -15,11 +9,11 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	let bookAuthor = document.querySelector('#book-author');    
 	let btn = document.querySelector('#btn');
 
-	document.getElementById("willkommen").innerHTML = localStorage.getItem("user");
+	document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;
 		
-	Object.keys(obj).forEach(key => {
+	Object.keys(userGesamtIngesamt.value.books).forEach(key => {
 		let node = document.createElement("li");                
-		let textnode = document.createTextNode(`${obj[key]}`); 
+		let textnode = document.createTextNode(`${userGesamtIngesamt.value.books[key]}`); 
 		node.appendChild(textnode);
 
 		let newElement = document.createElement("span");
@@ -28,14 +22,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
 		node.appendChild(newElement);	
 		document.getElementById("deine-buecher-liste").appendChild(node);		
-	 });
-
-	 // const matches = document.getElementById("eingabe").querySelectorAll("input");
-	 //console.log(matches,"values");
-	 //console.log(matches[0].value,"vv");
-	// matches.forEach(element => console.log(element.value),"valueee");
-	 
-	 
+	 });	 
 
 	function validateForm() {
 		let matches = document.getElementById("eingabe").querySelectorAll("input");		
@@ -63,7 +50,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	
 	function newRquest() {
         return new Request(
-            ( '/welcome/:' + localStorage.getItem("id") ),
+            ( '/welcome/:' + userGesamtIngesamt.id ),
             {
                 method: 'post',
                 headers: { 'content-type': 'application/json' },
@@ -71,7 +58,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
                     booktitle:	bookTitle.value,
                     bookauthor: bookAuthor.value,
 					bookgenre:	bookGenre.value,
-					rev:        localStorage.getItem("rev")          
+					rev:        userGesamtIngesamt.value.rev          
                 })
             }
         )

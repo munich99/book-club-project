@@ -1,7 +1,5 @@
 'use strict';
-// testing
-//
-console.log("Hello World!");
+console.log("Hello World!"); // testing
 
 const express = require('express');
 const body_parser = require('body-parser');
@@ -153,7 +151,7 @@ app.post("/welcome/:id", (req, res) => {
     console.log(userbook, "angekommen und buch");
             // note that "doc" must have both "_id" and "_rev" fields
             couch.update(dbName, {
-                _id: `${userbook.id}`, 
+                _id: `${userbook.id}`,  // ${} important to set id in quotes
                 _rev: `${userbook.rev}`,
                 password: "2245"
             }).then(({data, headers, status}) => {
