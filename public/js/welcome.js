@@ -68,7 +68,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	}
 
 	function token(usertoken){  
- 
+		// local store ändern
             
     	window.location.replace("/welcome");
   

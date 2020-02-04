@@ -91,24 +91,25 @@ app.post("/auth", (req, res) => {
         couch.get(dbName, viewUrl).
         then( ({data, headers, status}) => {
             
-            let array1 = data.rows;             
+            let array1 = data.rows; 
+            console.log(array1);             
             let forStatus = false;             
             for(let i=0; i<= array1.length-1; i++) {
                 
                 if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
-                    console.log("passt!");                      
+                    console.log("du bist drinnen");                      
                     res.status(200).send({
                     signed_user: array1[i],
                     token: token,                          
                     });
                     forStatus = true;
-                    console.log("du bist drinnen");
+                    
                     console.log(array1[i].value.books,"books");
                     break;
                 }  
             }
             if(!forStatus) {
-                res.status(403).send({ errorMessage: 'nicht bekannt!!!' });
+                res.status(403).send('nicht bekannt!!!');
                 console.log("nicht bekannt");
             }         
         });
@@ -151,23 +152,25 @@ app.post("/welcome/:id", (req, res) => {
         books:          req.body.value.books
     };       
     
-            // note that "doc" must have both "_id" and "_rev" fields
-            couch.update(dbName, {
-                _id:           `${userbook.id}`,  // ${} important to set id in quotes
-                _rev:          `${userbook.rev}`,
-                firstname:      userbook.firstname,
-                email:          userbook.email,
-                password:       userbook.password,
-                readedBooks:    userbook.books
-            }).then(({data, headers, status}) => {
-                console.log("eintrag geändert!!");
-                res.status(200).send({
-                new_book: {"new":22}               
-                });
-                        
-            }, err => {
-                res.status(403).send({ errorMessage: 'neuer user nicht möglich' });
-                console.log("buch anlegen nicht möglich");
-            });
-    
+        // note that "doc" must have both "_id" and "_rev" fields
+    couch.update(dbName, {
+        _id:           `${userbook.id}`,  // ${} important to set id in quotes
+        _rev:          `${userbook.rev}`,
+        firstname:      userbook.firstname,
+        email:          userbook.email,
+        password:       userbook.password,
+        readedBooks:    userbook.books
+    }).then(({data, headers, status}) => {            
+        res.status(200).send('every thing ok');
+        console.log("eintrag geändert!!");
+                
+    }, err => {
+        res.status(403).send('every thing ok');
+        console.log("buch anlegen nicht möglich");
+    })
+    /*.than(
+
+
+    );*/
+
 });

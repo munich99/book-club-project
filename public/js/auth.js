@@ -33,7 +33,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         ).then(
             erg => token(erg)  
         ).catch(
-            err => console.error( err )
+            err => fehler()
         )
     });
 
@@ -56,9 +56,12 @@ document.addEventListener ( 'DOMContentLoaded', () => {
                         
         if(usertoken.token) { 
             localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
+            console.log("geeeth");            
 
             window.location.replace("/welcome");
         } 
     }
+
+    function fehler(){alert("nicht möglich")}
 
 })
