@@ -139,23 +139,28 @@ app.post("/auth", (req, res) => {
 
 // new book -- new router
 app.post("/welcome/:id", (req, res) => {  
+    console.log(req.body, "ois");
+    console.log(req.body.value.rev, "-rev-");
     const itemId = req.params.id;
     let userbook = {
-        id:itemId.substr(1), 
-        rev: req.body.rev,
-        booktitle:	req.body.booktitle,
-        bookauthor: req.body.bookauthor,
-        bookgenre:	req.body.bookgenre 
-    };   
-
-    console.log(userbook, "angekommen und buch");
+        id:itemId.substr(1), // remove : from (/:id)
+        rev:            req.body.value.rev,
+        firstname:      req.body.value.firstname,
+        email:          req.body.value.email,
+        password:       req.body.value.password,
+        books:          req.body.value.books
+    };       
+    
             // note that "doc" must have both "_id" and "_rev" fields
             couch.update(dbName, {
-                _id: `${userbook.id}`,  // ${} important to set id in quotes
-                _rev: `${userbook.rev}`,
-                password: "2245"
+                _id:           `${userbook.id}`,  // ${} important to set id in quotes
+                _rev:          `${userbook.rev}`,
+                firstname:      userbook.firstname,
+                email:          userbook.email,
+                password:       userbook.password,
+                readedBooks:    userbook.books
             }).then(({data, headers, status}) => {
-                console.log(data, "neuer user möglich!!");
+                console.log("eintrag geändert!!");
                 res.status(200).send({
                 new_book: {"new":22}               
                 });

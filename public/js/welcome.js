@@ -26,17 +26,27 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
 	function validateForm() {
 		let matches = document.getElementById("eingabe").querySelectorAll("input");		
-		matches.forEach(element => { 
+		matches.forEach(element => {  // short for all inputs
 			if (!element.validity.valid) element.focus();	
 		});
 
-	
+		
 	}
 
-	btn.addEventListener ( 'click', () => {  
-		validateForm()	
 
-       let meinRequest = newRquest();
+	btn.addEventListener ( 'click', () => {  
+		validateForm();		
+
+		let newBooks = {[bookAuthor.value]:bookTitle.value};
+		console.log(newBooks, "neue bücher");
+		
+
+		
+		
+
+		
+
+       	let meinRequest = newRquest();
 
         fetch( meinRequest ).then(
             erg => erg.json() //console.log(erg)    
@@ -53,26 +63,28 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             ( '/welcome/:' + userGesamtIngesamt.id ),
             {
                 method: 'post',
-                headers: { 'content-type': 'application/json' },
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify(userGesamtIngesamt)
+
+				/*
                 body: JSON.stringify({                            
                     booktitle:	bookTitle.value,
                     bookauthor: bookAuthor.value,
 					bookgenre:	bookGenre.value,
 					rev:        userGesamtIngesamt.value.rev          
-                })
+				})
+				*/
+				
+
+
             }
         )
 	}
 
-	function token(usertoken){         
-                        
-             
-            //localStorage.setItem("token", usertoken.token); 
-            //localStorage.setItem("user", usertoken.signed_user.value.firstname);
-            //localStorage.setItem("id", usertoken.signed_user.id);
-            //localStorage.setItem("books", JSON.stringify(usertoken.signed_user.value.books)); 
+	function token(usertoken){  
+ 
             
-            window.location.replace("/welcome");
+         //   window.location.replace("/welcome");
   
     }
 	
