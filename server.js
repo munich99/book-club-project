@@ -110,7 +110,7 @@ app.post("/auth", (req, res) => {
                 }  
             }
             if(!forStatus) {
-                res.status(403).send({ errorMessage: 'nicht bekannt' });
+                res.status(403).send({ errorMessage: 'nicht bekannt!!!' });
                 console.log("nicht bekannt");
             }         
         });
@@ -139,11 +139,11 @@ app.post("/auth", (req, res) => {
 
 });
 
-// new book
+// new book -- new router
 app.post("/welcome/:id", (req, res) => {  
     const itemId = req.params.id;
     let userbook = {
-        id:itemId, 
+        id:itemId.substr(1), 
         rev: req.body.rev,
         booktitle:	req.body.booktitle,
         bookauthor: req.body.bookauthor,
@@ -151,22 +151,20 @@ app.post("/welcome/:id", (req, res) => {
     };   
 
     console.log(userbook, "angekommen und buch");
-
-            /*/ note that "doc" must have both "_id" and "_rev" fields
+            // note that "doc" must have both "_id" and "_rev" fields
             couch.update(dbName, {
-                _id: id,
-                _rev: "1-xxx",
-                field: "new sample data",
-                field2: 1
+                _id: `${userbook.id}`, 
+                _rev: `${userbook.rev}`,
+                password: "2245"
             }).then(({data, headers, status}) => {
-                        
-            }, err => {
-                // either request error occured
-                // ...or err.code=EFIELDMISSING if either _id or _rev fields are missing
-            }); */
-
-            res.status(200).send({
+                console.log(data, "neuer user möglich!!");
+                res.status(200).send({
                 new_book: {"new":22}               
                 });
+                        
+            }, err => {
+                res.status(403).send({ errorMessage: 'neuer user nicht möglich' });
+                console.log("buch anlegen nicht möglich");
+            });
     
 });
