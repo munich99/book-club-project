@@ -1,0 +1,12 @@
+- user logt sich ein
+
+- user sieht seine bücherliste
+- user gibt bewertungen ab
+- user trägt neue Bücher ein
+
+- user sucht andere user mit selben Büchern
+- user kontaktiert andere user
+- user bekommt nachrichten
+- user bildet lesezirkel
+
+- user schaut sich neue, andere Bücher an

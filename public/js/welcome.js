@@ -8,7 +8,10 @@ console.log(obj,"books");
  
 
 document.addEventListener ( 'DOMContentLoaded', () => {
-	// DOM-Elemente    
+	// DOM-Elemente 
+	let bookGenre = document.querySelector('#book-genre');
+	let bookTitle = document.querySelector('#book-title');
+	let bookAuthor = document.querySelector('#book-author');    
 	let btn = document.querySelector('#btn');
 
 	document.getElementById("willkommen").innerHTML = localStorage.getItem("user");
@@ -43,17 +46,14 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	}
 
 	btn.addEventListener ( 'click', () => {  
-		validateForm()
-
-		//!localStorage.getItem("books-new") ? console.log("truee") : console.log("falsee");
-		  
-		
-
+		validateForm()	
 
        let meinRequest = newRquest();
 
         fetch( meinRequest ).then(
             erg => erg.json() //console.log(erg)    
+        ).then(
+            erg => token(erg)  
         ).catch(
             err => console.error( err )
 		)		
@@ -62,18 +62,31 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	
 	function newRquest() {
         return new Request(
-            '/welcome/:555',
+            ( '/welcome/:' + localStorage.getItem("id") ),
             {
                 method: 'post',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({                            
-                    email:  "( email.value )",
-                    password:  "( password.value )",
-                    firstname:  "( firstname.value )"                   
+                    booktitle:	bookTitle.value,
+                    bookauthor: bookAuthor.value,
+					bookgenre:	bookGenre.value,
+					rev:        localStorage.getItem("rev")          
                 })
             }
         )
 	}
+
+	function token(usertoken){         
+                        
+             
+            //localStorage.setItem("token", usertoken.token); 
+            //localStorage.setItem("user", usertoken.signed_user.value.firstname);
+            //localStorage.setItem("id", usertoken.signed_user.id);
+            //localStorage.setItem("books", JSON.stringify(usertoken.signed_user.value.books)); 
+            
+            window.location.replace("/welcome");
+  
+    }
 	
 
 

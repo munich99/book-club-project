@@ -58,6 +58,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             localStorage.setItem("token", usertoken.token); 
             localStorage.setItem("user", usertoken.signed_user.value.firstname);
             localStorage.setItem("id", usertoken.signed_user.id);
+            localStorage.setItem("rev", usertoken.signed_user.rev);
             localStorage.setItem("books", JSON.stringify(usertoken.signed_user.value.books)); 
             
             window.location.replace("/welcome");

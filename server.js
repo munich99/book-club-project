@@ -141,41 +141,32 @@ app.post("/auth", (req, res) => {
 
 // new book
 app.post("/welcome/:id", (req, res) => {  
-    console.log("angekommen");
-      
-    
+    const itemId = req.params.id;
     let user = {
-        email: req.body.email,
-        password:  req.body.password,
-        firstname: req.body.firstname
+        id:itemId, 
+        rev: req.body.rev,
+        booktitle:	req.body.booktitle,
+        bookauthor: req.body.bookauthor,
+        bookgenre:	req.body.bookgenre 
     };   
-    
-    res.status(200).send({
-        new_book: {"new":22}               
-        });
-        /* 
-        couch.get(dbName, viewUrl).
-        then( ({data, headers, status}) => {
-            
-            let array1 = data.rows;             
-            let forStatus = false;             
-            for(let i=0; i<= array1.length-1; i++) {
-                
-                if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
-                    console.log("passt!");                      
-                    res.status(200).send({
-                    signed_user: array1[i]                
-                    });
-                    forStatus = true;
-                    console.log("du bist drinnen");
-                    console.log(array1[i].value.books,"books");
-                    break;
-                }  
-            }
-            if(!forStatus) {
-                res.status(403).send({ errorMessage: 'nicht bekannt' });
-                console.log("nicht bekannt");
-            }         
-        }); */
+
+    console.log(user, "angekommen und buch");
+
+            /*/ note that "doc" must have both "_id" and "_rev" fields
+            couch.update(dbName, {
+                _id: id,
+                _rev: "1-xxx",
+                field: "new sample data",
+                field2: 1
+            }).then(({data, headers, status}) => {
+                        
+            }, err => {
+                // either request error occured
+                // ...or err.code=EFIELDMISSING if either _id or _rev fields are missing
+            }); */
+
+            res.status(200).send({
+                new_book: {"new":22}               
+                });
     
 });
