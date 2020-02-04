@@ -15,5 +15,19 @@
 
     <h3>Deine gelesenen Bücher:</h3>
     <ul id="deine-buecher-liste"></ul>
+
+    <h3>Neues Buch empfehlen:</h3>
+    <div id="eingabe">
+        <input id="book-title" type="text" name="book-title" placeholder="Buchtitel" required />
+        <input id="book-author" type="text" name="book-author" placeholder="Author" required /><br>
+        <input id="book-genre" type="text" name="book-genre" placeholder="Genre" required />
+        <select id="book-part">            
+            <option value="1">ganz gelesen</option>
+            <option value="2">mehr als Hälfte gelesen</option>
+            <option value="3">ein Viertel gelesen</option>
+            <option value="4">greade angefangen</option>
+          </select><br>
+        <button id="btn">Buch Absenden</button>
+    </div>
 </body>
 </html>
