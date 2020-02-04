@@ -1,6 +1,7 @@
 'use strict';    
 console.log(localStorage.getItem("user"));
 console.log(localStorage.getItem("token"));  
+console.log(localStorage.getItem("id"));
 
 let obj = JSON.parse(localStorage.getItem("books"));
 console.log(obj,"books");
@@ -41,25 +42,41 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	
 	}
 
-	 btn.addEventListener ( 'click', () => {  
+	btn.addEventListener ( 'click', () => {  
 		validateForm()
 
-		!localStorage.getItem("books-new") ? console.log("truee") : console.log("falsee");
+		//!localStorage.getItem("books-new") ? console.log("truee") : console.log("falsee");
 		  
 		
 
 
-       /* let meinRequest = newRquest();
+       let meinRequest = newRquest();
 
         fetch( meinRequest ).then(
             erg => erg.json() //console.log(erg)    
         ).then(
-            erg => token(erg)  
+            erg => new_book(erg)  
         ).catch(
             err => console.error( err )
-		)
-		*/
+		)		
 		
-    });
+	});
+	
+	function newRquest() {
+        return new Request(
+            '/welcome/:555',
+            {
+                method: 'post',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({                            
+                    email:  "( email.value )",
+                    password:  "( password.value )",
+                    firstname:  "( firstname.value )"                   
+                })
+            }
+        )
+	}
+	
+
 
 });

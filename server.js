@@ -46,10 +46,6 @@ app.get('/auth',(req,res)=>{
 });
 
 app.get('/welcome',(req,res)=>{
-    //if(user.email){
-        //couch.get(dbName, viewUrl).
-        //then( ({data, headers, status}) => {});
-    //}
     res.sendFile(__dirname + "/public/welcome.html");
 });
 
@@ -139,5 +135,47 @@ app.post("/auth", (req, res) => {
                 console.log("neuer user nicht möglich");
             });
         } );
-    }
- });
+    }    
+
+});
+
+// new book
+app.post("/welcome/:id", (req, res) => {  
+    console.log("angekommen");
+      
+    
+    let user = {
+        email: req.body.email,
+        password:  req.body.password,
+        firstname: req.body.firstname
+    };   
+    
+    res.status(200).send({
+        new_book: "new"                
+        });
+        /* 
+        couch.get(dbName, viewUrl).
+        then( ({data, headers, status}) => {
+            
+            let array1 = data.rows;             
+            let forStatus = false;             
+            for(let i=0; i<= array1.length-1; i++) {
+                
+                if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
+                    console.log("passt!");                      
+                    res.status(200).send({
+                    signed_user: array1[i]                
+                    });
+                    forStatus = true;
+                    console.log("du bist drinnen");
+                    console.log(array1[i].value.books,"books");
+                    break;
+                }  
+            }
+            if(!forStatus) {
+                res.status(403).send({ errorMessage: 'nicht bekannt' });
+                console.log("nicht bekannt");
+            }         
+        }); */
+    
+});

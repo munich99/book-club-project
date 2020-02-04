@@ -57,8 +57,9 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         if(usertoken.token) {      
             localStorage.setItem("token", usertoken.token); 
             localStorage.setItem("user", usertoken.signed_user.value.firstname);
+            localStorage.setItem("id", usertoken.signed_user.id);
             localStorage.setItem("books", JSON.stringify(usertoken.signed_user.value.books)); 
-            localStorage.setItem("books-new", false);
+            
             window.location.replace("/welcome");
         } 
     }
