@@ -8,8 +8,8 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	let bookTitle  =  document.querySelector('#book-title');
 	let bookAuthor =  document.querySelector('#book-author');    
 	let btn        =  document.querySelector('#btn');
-
-	let btnFreunde = document.querySelectorAll('.buch_freunde');
+	let btnFreunde = document.querySelectorAll('.buch_freunde');	
+	
 
 	document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;
 		
@@ -42,9 +42,9 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		);
 	});
 	
-
+	// to save many times ## addEventListener ##
 	btnFreunde.forEach( (entry) => {
-		entry.addEventListener ( 'click', () =>  console.log());
+		entry.addEventListener ( 'click', () =>  console.log(entry.id));
 		console.log(entry)
 	  });
 
