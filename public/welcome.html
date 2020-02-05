@@ -18,9 +18,9 @@
 
     <h3>Neues Buch empfehlen:</h3>
     <div id="eingabe">
-        <input id="book-title" type="text" name="book-title" placeholder="Buchtitel" required />
-        <input id="book-author" type="text" name="book-author" placeholder="Author" required /><br>
-        <input id="book-genre" type="text" name="book-genre" placeholder="Genre" required />
+        <input id="book-title"  type="text" name="book-title"   placeholder="Buchtitel" required />
+        <input id="book-author" type="text" name="book-author"  placeholder="Author"    required /><br>
+        <input id="book-genre"  type="text" name="book-genre"   placeholder="Genre"     required />
         <select id="book-part">            
             <option value="1">ganz gelesen</option>
             <option value="2">mehr als Hälfte gelesen</option>
@@ -28,6 +28,13 @@
             <option value="4">greade angefangen</option>
           </select><br>
         <button id="btn">Buch Absenden</button>
+    </div>
+
+    <h3>Deine Freunde zum diskutieren</h3>
+    <div id="freunde">
+        <button id="btn-genre"  class="buch_freunde">nach Genre</button>
+        <button id="btn-author" class="buch_freunde">nach gemeisamen Autoren</button>
+        <button id="btn-books"  class="buch_freunde">nach gemeisamen Büchern</button>
     </div>
 </body>
 </html>

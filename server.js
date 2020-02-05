@@ -59,10 +59,10 @@ app.get('/items', (req,res)=>{
 
 app.get('/items/:id', (req,res)=>{
     const itemId = req.params.id;
-    const item = data.find(_item =>_item.id === itemId);
+    const item   = data.find(_item =>_item.id === itemId);
 
     if(item)res.json(item)
-    else res.json({massage:"id nicht vorhanden"})  
+    else    res.json({massage:"id nicht vorhanden"})  
 });
 // ##end not use apps ##
 
@@ -79,9 +79,9 @@ app.get('/items/:id', (req,res)=>{
 app.post("/auth", (req, res) => {    
     
     let user = {
-        email: req.body.email,
-        password:  req.body.password,
-        firstname: req.body.firstname
+        email:      req.body.email,
+        password:   req.body.password,
+        firstname:  req.body.firstname
     }; 
     // DECLARE JWT-secret, install jsonwebtoken ### here not use, but ##JSON Web Tokens for heigh SECURITY
     let token = jwt.sign(user, JWT_Secret);
@@ -90,15 +90,15 @@ app.post("/auth", (req, res) => {
          
         couch.get(dbName, viewUrl).
         then(({data, headers, status}) => {            
-            let array1 = data.rows;                        
-            let forStatus = false;             
-            for(let i=0; i<= array1.length-1; i++) {
+            let array1      = data.rows;                        
+            let forStatus   = false;             
+            for(let i= 0; i<= (array1.length-1); i++) {
                 
                 if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
                     console.log("du bist drinnen");                      
                     res.status(200).send({
                     signed_user: array1[i],
-                    token: token,                          
+                    token:       token,                          
                     });
                     forStatus = true;     
                     break;
@@ -115,16 +115,16 @@ app.post("/auth", (req, res) => {
         couch.uniqid().then( (ids) => { 
             const id = ids[0]  // generate unique id
             couch.insert(dbName, {
-                _id: id,
-                firstname: req.body.firstname,
-                email: req.body.email,
-                password: req.body.password
+                _id:        id,
+                firstname:  req.body.firstname,
+                email:      req.body.email,
+                password:   req.body.password
             }).then(({data, headers, status}) => {
                 // console.log(data, "neuer user möglich!!");
                 let Signed_user = {value:user};
                 res.status(200).send({
-                    signed_user:Signed_user,
-                    token: token,          
+                    signed_user:    Signed_user,
+                    token:          token,          
                 });
             }, err => {
                 res.status(403).send({ errorMessage: 'neuer user nicht möglich' });
@@ -168,3 +168,33 @@ app.post("/welcome/:id", (req, res) => {
         console.log("buch anlegen nicht möglich");
     })
 });
+
+// new book -- new router
+app.post("/welcome/a/:neighbours", (req, res) => {    
+   let userbook = {        
+        booktitle:      req.body.booktitle,
+        bookauthor:     req.body.bookauthor,
+        bookgenre:      req.body.bookgenre,
+        user:           req.body.user        
+    };     
+
+    couch.get(dbName, viewUrl).
+        then(({data, headers, status}) => { 
+            let array2      = data.rows; 
+            let findsearch  = [];             
+
+            for(let i= 0; i<= (array2.length-1); i++) {                
+                let obj = array2[i].value.books;
+                console.log(Object.keys(obj)); 
+                if( obj.hasOwnProperty(userbook.booktitle) && array2[i].value.firstname != userbook.user) {  
+                    findsearch.push(array2[i].value.firstname) 
+                };  
+            };
+            console.log(findsearch,"dieses buch haben gelesen");
+            
+            res.status(200).send({                
+                xx:       findsearch                         
+            });                  
+            
+        }) 
+})
