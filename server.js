@@ -96,10 +96,13 @@ app.post("/auth", (req, res) => {
                     signed_user: array1[i],
                     token:       token,                          
                     });
-                    forStatus = true;     
+                    forStatus = true; 
+                    console.log(array1[i].value.books,"deine daten");    
                     break;
                 }  
             }
+
+            
 
             if(!forStatus) {
                 res.status(403).send('nicht bekannt!!!');
