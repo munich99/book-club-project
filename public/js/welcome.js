@@ -29,6 +29,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		document.getElementById("deine-buecher-liste").appendChild(node);		
 	 });
 
+// new book ##
 	btn.addEventListener ( 'click', () => {  
 		validateForm();	
 		let b1 = bookAuthor.value;
@@ -44,18 +45,19 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             err => console.error( err )
 		);
 	});
+
 	
-	// to save many times ## addEventListener ##
+// serching Friends /to save many times ## addEventListener ##
 	btnFreunde.forEach( (entry) => {
 		entry.addEventListener ( 'click', () =>  {
-			console.log(entry.id);
+			// alert(entry.parentNode.firstElementChild.value);			
 
-			let serchingFriends = {                            
-				booktitle:      "aa",
-				bookauthor:     "wert-button",
-				bookgenre:      "wert-button",
-				user:           userGesamtIngesamt.value.firstname                
+			let serchingFriends = {     
+				searchtheme:	entry.parentNode.id,
+				searchcontent:  entry.parentNode.firstElementChild.value,				
+				user:           userGesamtIngesamt.value.firstname
 			};
+			
 			console.log(JSON.stringify(serchingFriends));
 			
 			
@@ -67,7 +69,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 				erg => console.log(erg)    
 			).catch(
 				err => console.error( err )
-			);
+			); 
 
 			
 		});

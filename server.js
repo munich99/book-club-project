@@ -169,13 +169,12 @@ app.post("/welcome/:id", (req, res) => {
     })
 });
 
-// new book -- new router
+// search friens -- new router
 app.post("/welcome/a/:neighbours", (req, res) => {    
    let userbook = {        
-        booktitle:      req.body.booktitle,
-        bookauthor:     req.body.bookauthor,
-        bookgenre:      req.body.bookgenre,
-        user:           req.body.user        
+        searchtheme:        req.body.searchtheme,
+        searchcontent:      req.body.searchcontent,        
+        user:               req.body.user        
     };     
 
     couch.get(dbName, viewUrl).
@@ -185,10 +184,22 @@ app.post("/welcome/a/:neighbours", (req, res) => {
 
             for(let i= 0; i<= (array2.length-1); i++) {                
                 let obj = array2[i].value.books;
-                console.log(Object.keys(obj)); 
-                if( obj.hasOwnProperty(userbook.booktitle) && array2[i].value.firstname != userbook.user) {  
-                    findsearch.push(array2[i].value.firstname) 
-                };  
+                // console.log(Object.keys(obj)); 
+
+                switch (userbook.searchtheme) {
+                    case 'author' :  // for searching title/(the key)
+                        if( obj.hasOwnProperty(userbook.searchcontent) && array2[i].value.firstname != userbook.user) {  
+                            findsearch.push(array2[i].value.firstname)                         
+                        }
+                       break;
+                    case 'Erbsen' :
+                       console.log("anderes thema");
+                       
+                       break;
+                    default:
+                        console.log("nix thema");
+                 }
+
             };
             console.log(findsearch,"dieses buch haben gelesen");
             
