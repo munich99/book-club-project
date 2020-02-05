@@ -14,30 +14,24 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	
 
 	document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;
-
 	
+	let textnode, node, newElement, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""]; 		
+	userGesamtIngesamt.value.books.forEach(key => {	
 
+		node 	 = document.createElement("li");		
+		textnode = document.createTextNode(Object.values(key)[0] + " von "); 
+		node.appendChild(textnode);		
 		
-	userGesamtIngesamt.value.books.forEach(key => {		
-		console.log(Object.values(key),"fffffff");
-		
-		// console.log(userGesamtIngesamt.value.books.key(title),"neues objekt");
+		for(let i=1; i<=3; i++){			
+			newElement = document.createElement("span");
+			newTextnode = document.createTextNode( Object.values(key)[i] + addmeaning[i] );
+			newElement.appendChild(newTextnode);
+			node.appendChild(newElement)
+		}
 
-		let node 	 = document.createElement("li");                
-		let textnode = document.createTextNode(`${userGesamtIngesamt.value.books}`); 
-		node.appendChild(textnode);
+		document.getElementById("deine-buecher-liste").appendChild(node);	
 
-		let newElement = document.createElement("span");
-		let textnode2  = document.createTextNode(`${key}`); 
-		newElement.appendChild(textnode2);
-
-		node.appendChild(newElement);	
-		document.getElementById("deine-buecher-liste").appendChild(node);		
 	 });
-
-
-
-
 
 // new book ##
 	btn.addEventListener ( 'click', () => {  
@@ -68,8 +62,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 				user:           userGesamtIngesamt.value.firstname
 			};
 			
-			console.log(JSON.stringify(serchingFriends));
-			
+			console.log(JSON.stringify(serchingFriends));			
 			
 			meinRequest = newRquest('/welcome/a/:55', JSON.stringify(serchingFriends));
 
