@@ -26,15 +26,28 @@
             <option value="2">mehr als Hälfte gelesen</option>
             <option value="3">ein Viertel gelesen</option>
             <option value="4">greade angefangen</option>
-          </select><br>
+        </select><br>
         <button id="btn">Buch Absenden</button>
     </div>
 
     <h3>Deine Freunde zum diskutieren</h3>
-    <div id="freunde">
-        <button id="btn-genre"  class="buch_freunde">nach Genre</button>
+    <div>
+        <input id="book-title"  type="text" name="book-title"   placeholder="Buchtitel eingeben" required />
+        <button id="btn-title"  class="buch_freunde">nach gemeisamen Büchern suchen</button>
+    </div>
+
+    <div>
+        <input id="book-author"  type="text" name="book-title"   placeholder="Buchtitel eingeben" required />
         <button id="btn-author" class="buch_freunde">nach gemeisamen Autoren</button>
-        <button id="btn-books"  class="buch_freunde">nach gemeisamen Büchern</button>
+    </div>
+    <div>
+        <select id="book-part">            
+            <option value="1">ganz gelesen</option>
+            <option value="2">mehr als Hälfte gelesen</option>
+            <option value="3">ein Viertel gelesen</option>
+            <option value="4">greade angefangen</option>
+        </select>
+        <button id="btn-genre"  class="buch_freunde">nach Genre</button>
     </div>
 </body>
 </html>
