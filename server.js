@@ -12,6 +12,9 @@ const app = express();
 const JWT_Secret = 'your_secret_key';
 const jwt = require('jsonwebtoken');
 
+const dbName = "buch-club";
+const viewUrl = "_design/view4/_view/vorname";
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -20,18 +23,13 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true })) //({ extended: false }) for sending <form> without JSON
 app.use(cors());
 
-// node-couchdb instance with default options
+// node-couchdb instance with default options ### here not use ###
 const couch = new NodeCouchDb();
-
 couch.listDatabases().then( (dbs) => {
     // console.log(dbs)
     }, err => {
     console.log(err)
 });
-
-const dbName = "buch-club";
-const viewUrl = "_design/view4/_view/vorname";
-
 
 // route handler
 app.get('/',(req,res)=>{
@@ -53,7 +51,7 @@ app.listen(port, ()=>{
     console.log(`app listen at port ${port}`);    
 });
 
-// own apps
+// own apps ## here not use ###
 let data = require('./own_modules/data');
 app.get('/items', (req,res)=>{
     res.json(data);        
@@ -66,6 +64,7 @@ app.get('/items/:id', (req,res)=>{
     if(item)res.json(item)
     else res.json({massage:"id nicht vorhanden"})  
 });
+// ##end not use apps ##
 
 // post app
 /* for #postman# dont forget
@@ -73,7 +72,7 @@ app.get('/items/:id', (req,res)=>{
  body -> {"key":"value"}
  */
 
-// DECLARE JWT-secret, but missing substrings #install jsonwebtoken#
+
 	
 
 
@@ -84,15 +83,14 @@ app.post("/auth", (req, res) => {
         password:  req.body.password,
         firstname: req.body.firstname
     }; 
+    // DECLARE JWT-secret, install jsonwebtoken ### here not use, but ##JSON Web Tokens for heigh SECURITY
     let token = jwt.sign(user, JWT_Secret);
 
-    if(!req.body.firstname){            
+    if(!req.body.firstname){        
          
         couch.get(dbName, viewUrl).
-        then( ({data, headers, status}) => {
-            
-            let array1 = data.rows; 
-            console.log(array1);             
+        then(({data, headers, status}) => {            
+            let array1 = data.rows;                        
             let forStatus = false;             
             for(let i=0; i<= array1.length-1; i++) {
                 
@@ -102,12 +100,11 @@ app.post("/auth", (req, res) => {
                     signed_user: array1[i],
                     token: token,                          
                     });
-                    forStatus = true;
-                    
-                    console.log(array1[i].value.books,"books");
+                    forStatus = true;     
                     break;
                 }  
             }
+
             if(!forStatus) {
                 res.status(403).send('nicht bekannt!!!');
                 console.log("nicht bekannt");
@@ -123,12 +120,12 @@ app.post("/auth", (req, res) => {
                 email: req.body.email,
                 password: req.body.password
             }).then(({data, headers, status}) => {
-                console.log(data, "neuer user möglich!!");
+                // console.log(data, "neuer user möglich!!");
                 let Signed_user = {value:user};
                 res.status(200).send({
                     signed_user:Signed_user,
                     token: token,          
-                    });
+                });
             }, err => {
                 res.status(403).send({ errorMessage: 'neuer user nicht möglich' });
                 console.log("neuer user nicht möglich");
@@ -139,9 +136,7 @@ app.post("/auth", (req, res) => {
 });
 
 // new book -- new router
-app.post("/welcome/:id", (req, res) => {  
-    console.log(req.body, "ois");
-    console.log(req.body.value.rev, "-rev-");
+app.post("/welcome/:id", (req, res) => { 
     const itemId = req.params.id;
     let userbook = {
         id:itemId.substr(1), // remove : from (/:id)
@@ -152,7 +147,7 @@ app.post("/welcome/:id", (req, res) => {
         books:          req.body.value.books
     };       
     
-        // note that "doc" must have both "_id" and "_rev" fields
+    // note that "doc" must have both "_id" and "_rev" fields
     couch.update(dbName, {
         _id:           `${userbook.id}`,  // ${} important to set id in quotes
         _rev:          `${userbook.rev}`,
@@ -160,17 +155,16 @@ app.post("/welcome/:id", (req, res) => {
         email:          userbook.email,
         password:       userbook.password,
         readedBooks:    userbook.books
-    }).then(({data, headers, status}) => {            
-        res.status(200).send('every thing ok');
-        console.log("eintrag geändert!!");
-                
+    }).then(
+
+        couch.get(dbName, userbook.id)
+    ).then(({data, headers, status}) => {  
+        res.status(200).send({
+            rev_user: data.rev                      
+        });   
+        console.log("eintrag geändert und gesendet!!");
     }, err => {
-        res.status(403).send('every thing ok');
+        res.status(403).send("noththing ok");
         console.log("buch anlegen nicht möglich");
     })
-    /*.than(
-
-
-    );*/
-
 });

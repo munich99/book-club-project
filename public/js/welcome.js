@@ -1,6 +1,6 @@
 'use strict';
 
-const userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
+let userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
 
 document.addEventListener ( 'DOMContentLoaded', () => {
 	// DOM-Elemente 
@@ -42,14 +42,21 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		// let newBooks = {[bookAuthor.value]:bookTitle.value};
 		console.log(userGesamtIngesamt.value.books, "neue bücher");
 
-       	let meinRequest = newRquest();
-
-        fetch( meinRequest ).then(
+		   let meinRequest = newRquest();
+		   
+		   /*
+		           fetch( meinRequest ).then(
             erg => erg.json() //console.log(erg)    
         ).then(
-			localStorage.setItem("userGesamt", JSON.stringify(userGesamtIngesamt))
-		).then(
             erg => token(erg)  
+        ).catch(
+            err => fehler()
+        ) */
+
+        fetch( meinRequest ).then(
+			erg => erg.json() //console.log(erg)    
+        ).then(
+            erg => token(erg)     
         ).catch(
             err => console.error( err )
 		);
@@ -67,13 +74,13 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         )
 	}
 
-	function token(usertoken){  
-		// local store ändern
-            
-    	window.location.replace("/welcome");
-  
-    }
+	function token(erg){  
+		// local store chainging - for new couchdb _rev  
+		userGesamtIngesamt.value.rev = erg.rev_user;
+		localStorage.setItem("userGesamt", JSON.stringify(userGesamtIngesamt));
+		window.location.replace("/welcome");  
+	}
 	
-
+	function error( err ){ console.log(err)}
 
 });
