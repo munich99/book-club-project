@@ -72,10 +72,6 @@ app.get('/items/:id', (req,res)=>{
  body -> {"key":"value"}
  */
 
-
-	
-
-
 app.post("/auth", (req, res) => {    
     
     let user = {
@@ -169,7 +165,7 @@ app.post("/welcome/:id", (req, res) => {
     })
 });
 
-// search friens -- new router
+// search friends -- new router
 app.post("/welcome/a/:neighbours", (req, res) => {    
    let userbook = {        
         searchtheme:        req.body.searchtheme,
@@ -187,15 +183,21 @@ app.post("/welcome/a/:neighbours", (req, res) => {
                 // console.log(Object.keys(obj)); 
 
                 switch (userbook.searchtheme) {
-                    case 'author' :  // for searching title/(the key)
+                    case 'author' :  // for searching author/(the key)
                         if( obj.hasOwnProperty(userbook.searchcontent) && array2[i].value.firstname != userbook.user) {  
                             findsearch.push(array2[i].value.firstname)                         
                         }
                        break;
-                    case 'Erbsen' :
-                       console.log("anderes thema");
-                       
+                    case 'title' :  // for searching title/(the value)
+                        if( Object.values(obj) && array2[i].value.firstname != userbook.user) {  
+                            findsearch.push(array2[i].value.firstname)                         
+                        }                        
                        break;
+                    case 'genre' :  // for searching title/(the value)
+                        if( Object.values(obj) && array2[i].value.firstname != userbook.user) {  
+                            findsearch.push(array2[i].value.firstname)                         
+                        }                        
+                        break;
                     default:
                         console.log("nix thema");
                  }
