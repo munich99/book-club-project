@@ -55,8 +55,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     function token(usertoken){         
                         
         if(usertoken.token) { 
-            localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
-            console.log("geeeth");            
+            localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));                       
 
             window.location.replace("/welcome");
         } 

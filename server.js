@@ -90,9 +90,9 @@ app.post("/auth", (req, res) => {
          
         couch.get(dbName, viewUrl).
         then(({data, headers, status}) => {            
-            let array1 = data.rows;                        
-            let forStatus = false;             
-            for(let i=0; i<= array1.length-1; i++) {
+            let array1      = data.rows;                        
+            let forStatus   = false;             
+            for(let i= 0; i<= (array1.length-1); i++) {
                 
                 if(user.email === array1[i].value.email && user.password === array1[i].value.password) {
                     console.log("du bist drinnen");                      
@@ -168,3 +168,33 @@ app.post("/welcome/:id", (req, res) => {
         console.log("buch anlegen nicht möglich");
     })
 });
+
+// new book -- new router
+app.post("/welcome/a/:neighbours", (req, res) => {    
+   let userbook = {        
+        booktitle:      req.body.booktitle,
+        bookauthor:     req.body.bookauthor,
+        bookgenre:      req.body.bookgenre,
+        user:           req.body.user        
+    };     
+
+    couch.get(dbName, viewUrl).
+        then(({data, headers, status}) => { 
+            let array2      = data.rows; 
+            let findsearch  = [];             
+
+            for(let i= 0; i<= (array2.length-1); i++) {                
+                let obj = array2[i].value.books;
+                console.log(Object.keys(obj)); 
+                if( obj.hasOwnProperty(userbook.booktitle) && array2[i].value.firstname != userbook.user) {  
+                    findsearch.push(array2[i].value.firstname) 
+                };  
+            };
+            console.log(findsearch,"dieses buch haben gelesen");
+            
+            res.status(200).send({                
+                xx:       findsearch                         
+            });                  
+            
+        }) 
+})

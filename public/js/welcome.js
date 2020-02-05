@@ -1,6 +1,8 @@
 'use strict';
 
 let userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
+console.log(userGesamtIngesamt);
+
 
 document.addEventListener ( 'DOMContentLoaded', () => {
 	// DOM-Elemente 
@@ -8,7 +10,8 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	let bookTitle  =  document.querySelector('#book-title');
 	let bookAuthor =  document.querySelector('#book-author');    
 	let btn        =  document.querySelector('#btn');
-	let btnFreunde = document.querySelectorAll('.buch_freunde');	
+	let btnFreunde = document.querySelectorAll('.buch_freunde');
+	let meinRequest;	
 	
 
 	document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;
@@ -31,7 +34,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		let b1 = bookAuthor.value;
 		userGesamtIngesamt.value.books[b1] = bookTitle.value;
 
-		let meinRequest = newRquest();
+		meinRequest = newRquest(( '/welcome/:' + userGesamtIngesamt.id ), JSON.stringify(userGesamtIngesamt));
 
         fetch( meinRequest ).then(
 			erg => erg.json() //console.log(erg)    
@@ -44,17 +47,40 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 	
 	// to save many times ## addEventListener ##
 	btnFreunde.forEach( (entry) => {
-		entry.addEventListener ( 'click', () =>  console.log(entry.id));
+		entry.addEventListener ( 'click', () =>  {
+			console.log(entry.id);
+
+			let serchingFriends = {                            
+				booktitle:      "aa",
+				bookauthor:     "wert-button",
+				bookgenre:      "wert-button",
+				user:           userGesamtIngesamt.value.firstname                
+			};
+			console.log(JSON.stringify(serchingFriends));
+			
+			
+			meinRequest = newRquest('/welcome/a/:55', JSON.stringify(serchingFriends));
+
+			fetch( meinRequest ).then(
+				erg => erg.json() //console.log(erg)    
+			).then(
+				erg => console.log(erg)    
+			).catch(
+				err => console.error( err )
+			);
+
+			
+		});
 		console.log(entry)
 	  });
 
 	
-	function newRquest() {
+	function newRquest(routing, bodycontent) {
         return new Request(
-            ( '/welcome/:' + userGesamtIngesamt.id ),
+            routing,
             {   method: 	'post',
 				headers:  { 'content-type': 'application/json' },
-				body: 		JSON.stringify(userGesamtIngesamt)
+				body: 		bodycontent
             }
         )
 	}
