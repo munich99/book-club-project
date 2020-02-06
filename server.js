@@ -193,14 +193,17 @@ app.post("/welcome/a/:neighbours", (req, res) => {
             };
 
             // findsearchUnique =[...new Set(findsearch)]
-            console.log(findsearch,"alle freunde");             
-        }).then(({data, headers, status}) => {  
+            console.log(findsearch,"alle freunde"); 
             res.status(200).send({
-                rev_user:   data.rev                      
+                findsearch:   findsearch                          
+                });            
+        })/*.then(({data, headers, status}) => {  
+            res.status(200).send({
+                findsearch:   findsearch                      
             });   
             console.log("eintrag geändert und gesendet!!");
         }, err => {
             res.status(403).send("notthing ok");
             console.log("buch anlegen nicht möglich");
-        })
+        }) */
 })

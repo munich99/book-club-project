@@ -68,7 +68,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
         fetch( meinRequest ).then(
 			erg => erg.json() //console.log(erg)    
         ).then(
-            erg => token(erg)     
+            erg => findsearchBack(erg)     
         ).catch(
             err => console.error( err )
 		); 
@@ -114,6 +114,11 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 		userGesamtIngesamt.value.rev = erg.rev_user;
 		localStorage.setItem("userGesamt", JSON.stringify(userGesamtIngesamt));
 		window.location.replace("/welcome");  
+	}
+
+	function findsearchBack(erg){
+		console.log(erg, "das kommt zurück bei freunden");
+		
 	}
 	
 	// function error( err ){ console.log(err)}
