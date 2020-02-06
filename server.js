@@ -178,18 +178,19 @@ app.post("/welcome/a/:neighbours", (req, res) => {
     couch.get(dbName, viewUrl).
         then(({data, headers, status}) => { 
             let array2      = data.rows; 
-            let findsearch  = [], fn, obj;                      
+            let findsearch  = [], findsearchUnique, fn, obj;                      
 
             for(let i= 0; i<= (array2.length-1); i++) {  
                
                 fn  = array2[i].value.firstname;
                 obj = Object.values(array2[i].value.books);
 
-                for(let i=0; i < obj.length; i++ ){
-                  //console.log(obj[i][userbook.searchtheme],"obj---obj"); 
+                for(let i=0; i < obj.length; i++ ){                  
                   findsearch.push(fn);                                     
                 }
             };
-            console.log(findsearch,"alle freunde"); 
+
+            findsearchUnique =[...new Set(findsearch)]
+            console.log(findsearchUnique,"alle freunde");             
         }) 
 })
