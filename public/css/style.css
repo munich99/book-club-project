@@ -3,15 +3,19 @@ body{
     background-color: rgb(212, 164, 102);
 }
 
-h1, h4 {
+h1 {
     text-align: center;
 }
-h3 {
+h3, h4 {
     margin-bottom: 3px;
 }
 
-h4 { 
-    cursor: pointer 
+.auth { 
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    color: black;
+    padding-bottom: 1em;
 }
 
 .main{

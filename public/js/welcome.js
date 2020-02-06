@@ -42,7 +42,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 
 		// --- validate new book
 				
-		let fieldsfull	=true;
+		let fieldsfull	= true;
 		let matches 	= document.getElementById("eingabe").querySelectorAll("input");	
 
 		matches.forEach(element => {  // short for all inputs 			

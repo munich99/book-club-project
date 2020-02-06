@@ -10,26 +10,56 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     let linkNeueruser = document.querySelector('#link-neueruser');
     let firstname=[];
 
+    let node, newUser, el, nodeLogin, textnodeLogin, addLogin
     linkNeueruser.addEventListener ( 'click', () => {
-        let node = document.createElement("input");               
-                           
-        let newUser = document.getElementById("eingabe");
+
+        node = document.createElement("input");   
+        newUser = document.getElementById("eingabe");
         newUser.insertBefore(node, newUser.childNodes[0]);  
         
         node.setAttribute("id", "firstname");
         node.setAttribute("name", "firstname");
         node.setAttribute("placeholder", "Vorname");
+        node.setAttribute("required", true);
 
-        firstname = document.querySelector('#firstname');
+        firstname = document.querySelector('#firstname');        
+        el = document.getElementById('link-neueruser');
+        el.remove(); 
+        document.getElementById("btn").innerHTML = "Registrieren";
 
-        let neu = document.getElementsByTagName("h4"); 
-        neu.removeChild(neu.childNodes[0]); 
+        nodeLogin = document.createElement("a");
+        textnodeLogin = document.createTextNode("zurück zu Anmeldung");
+        nodeLogin.appendChild(textnodeLogin);
+        nodeLogin.classList.add("auth");
+        nodeLogin.setAttribute("href", "auth.html");
+
+        addLogin = document.querySelector(".main");
+        addLogin.appendChild(nodeLogin);
+
+
+        // searchBack.appendChild(nodeBack);
 
 
     });
     
 
-    btn.addEventListener ( 'click', () => {        
+    btn.addEventListener ( 'click', () => {   
+        
+        // --- validate
+				
+		let fieldsfull	= true;
+		let matches 	= document.getElementById("eingabe").querySelectorAll("input");	
+
+		matches.forEach(element => {  // short for all inputs 			
+			if (!element.validity.valid) {
+				 element.focus(); fieldsfull=false; return
+			}	
+		});
+
+		if(!fieldsfull) return 
+		
+        // -----------
+        
         let meinRequest = newRquest();
 
         fetch( meinRequest ).then(
