@@ -4,11 +4,14 @@ let userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
 console.log(userGesamtIngesamt);
 
 
-document.addEventListener ( 'DOMContentLoaded', () => {
-	// DOM-Elemente 
-	let bookGenre  =  document.querySelector('#book-genre');
+document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente 
+	
 	let bookTitle  =  document.querySelector('#book-title');
-	let bookAuthor =  document.querySelector('#book-author');    
+	let bookAuthor =  document.querySelector('#book-author');  
+	let bookGenre  =  document.querySelector('#book-genre'); 
+	let bookPart =  document.querySelector('#book-part');
+	
+
 	let btn        =  document.querySelector('#btn');
 	let btnFreunde = document.querySelectorAll('.buch_freunde');
 	let meinRequest;	
@@ -33,14 +36,14 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		document.getElementById("deine-buecher-liste").appendChild(node);	
 
 	 });
-
-	 //btn.removeEventListener("click");
+	
 // new book ##	
 	btn.addEventListener ( 'click', () => {  
-		// --- validate new book
 
-		let fieldsfull=true;
-		let matches = document.getElementById("eingabe").querySelectorAll("input");	
+		// --- validate new book
+				
+		let fieldsfull	=true;
+		let matches 	= document.getElementById("eingabe").querySelectorAll("input");	
 
 		matches.forEach(element => {  // short for all inputs 			
 			if (!element.validity.valid) {
@@ -51,30 +54,14 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 		if(!fieldsfull) return 
 		
 		// -----------
-
-/*
-		function parent_function(){			
-			function child_function(){
-				console.log("Hi from CHILD function")
-			}
-			return child_function
+		
+		let newbookarray =  {
+			title:	bookTitle.value,
+			autor:	bookAuthor.value,
+			read:	bookPart.value,
+			genre:	bookGenre.value
 		}
-
-		child_function = parent_function()
-		
-		child_function()
-	*/
-		// ------------
-
-		
-
-		// console.log(hallo(),"hallo");
-
-		console.log(userGesamtIngesamt,"userGesamtIngesamt");
-		
-		/*
-		let b1 = bookAuthor.value;
-		userGesamtIngesamt.value.books[b1] = bookTitle.value;
+		userGesamtIngesamt.value.books.push(newbookarray);
 		
 		meinRequest = newRquest(( '/welcome/:' + userGesamtIngesamt.id ), JSON.stringify(userGesamtIngesamt));
 
@@ -84,7 +71,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             erg => token(erg)     
         ).catch(
             err => console.error( err )
-		); */
+		); 
 	});
 
 	

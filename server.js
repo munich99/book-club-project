@@ -138,7 +138,7 @@ app.post("/auth", (req, res) => {
 app.post("/welcome/:id", (req, res) => { 
     const itemId = req.params.id;
     let userbook = {
-        id:itemId.substr(1), // remove : from (/:id)
+        id:             itemId.substr(1), // remove : from (/:id)
         rev:            req.body.value.rev,
         firstname:      req.body.value.firstname,
         email:          req.body.value.email,
@@ -155,11 +155,10 @@ app.post("/welcome/:id", (req, res) => {
         password:       userbook.password,
         readedBooks:    userbook.books
     }).then(
-
         couch.get(dbName, userbook.id)
     ).then(({data, headers, status}) => {  
         res.status(200).send({
-            rev_user: data.rev                      
+            rev_user:   data.rev                      
         });   
         console.log("eintrag geändert und gesendet!!");
     }, err => {
