@@ -25,11 +25,7 @@ app.use(cors());
 
 // node-couchdb instance with default options ### here not use ###
 const couch = new NodeCouchDb();
-couch.listDatabases().then( (dbs) => {
-    // console.log(dbs)
-    }, err => {
-    console.log(err)
-});
+
 
 // route handler
 app.get('/',(req,res)=>{
@@ -72,10 +68,6 @@ app.get('/items/:id', (req,res)=>{
  body -> {"key":"value"}
  */
 
-
-	
-
-
 app.post("/auth", (req, res) => {    
     
     let user = {
@@ -100,10 +92,12 @@ app.post("/auth", (req, res) => {
                     signed_user: array1[i],
                     token:       token,                          
                     });
-                    forStatus = true;     
+                    forStatus = true;                     
                     break;
                 }  
             }
+
+            
 
             if(!forStatus) {
                 res.status(403).send('nicht bekannt!!!');
@@ -139,7 +133,7 @@ app.post("/auth", (req, res) => {
 app.post("/welcome/:id", (req, res) => { 
     const itemId = req.params.id;
     let userbook = {
-        id:itemId.substr(1), // remove : from (/:id)
+        id:             itemId.substr(1), // remove : from (/:id)
         rev:            req.body.value.rev,
         firstname:      req.body.value.firstname,
         email:          req.body.value.email,
@@ -156,11 +150,10 @@ app.post("/welcome/:id", (req, res) => {
         password:       userbook.password,
         readedBooks:    userbook.books
     }).then(
-
         couch.get(dbName, userbook.id)
     ).then(({data, headers, status}) => {  
         res.status(200).send({
-            rev_user: data.rev                      
+            rev_user:   data.rev                      
         });   
         console.log("eintrag geändert und gesendet!!");
     }, err => {
@@ -169,32 +162,49 @@ app.post("/welcome/:id", (req, res) => {
     })
 });
 
-// new book -- new router
+// search friends -- new router
 app.post("/welcome/a/:neighbours", (req, res) => {    
    let userbook = {        
-        booktitle:      req.body.booktitle,
-        bookauthor:     req.body.bookauthor,
-        bookgenre:      req.body.bookgenre,
-        user:           req.body.user        
+        searchtheme:        req.body.searchtheme,
+        searchcontent:      req.body.searchcontent,        
+        user:               req.body.user        
     };     
+    console.log(userbook.searchtheme,"userbook.searchtheme");
+    
 
     couch.get(dbName, viewUrl).
         then(({data, headers, status}) => { 
             let array2      = data.rows; 
-            let findsearch  = [];             
+            let findsearch  = [], findsearchUnique, fn, obj;  
+            for(let i= 0; i< (array2.length); i++) {  
 
-            for(let i= 0; i<= (array2.length-1); i++) {                
-                let obj = array2[i].value.books;
-                console.log(Object.keys(obj)); 
-                if( obj.hasOwnProperty(userbook.booktitle) && array2[i].value.firstname != userbook.user) {  
-                    findsearch.push(array2[i].value.firstname) 
-                };  
+                console.log(array2[i].value.firstname,"name");
+
+                obj = array2[i].value.books;
+                fn  = userbook.searchtheme; 
+                obj.forEach(element => {
+                    if(userbook.searchcontent === element[fn] && userbook.user !== (array2[i].value.firstname) ) {
+                       // console.log("gefunden bei" + array2[i].value.firstname); 
+                        findsearch.push(array2[i].value.firstname)
+                    } else{
+                        console.log("nix gefunden");
+                    }   
+                });
             };
-            console.log(findsearch,"dieses buch haben gelesen");
-            
-            res.status(200).send({                
-                xx:       findsearch                         
-            });                  
-            
-        }) 
+
+            // findsearchUnique =[...new Set(findsearch)]
+            console.log(userbook.searchtheme,"--thema"); 
+            res.status(200).send({
+                findsearchBack:   findsearch,
+                searchthemeBack:  userbook.searchtheme,
+                });            
+        })/*.then(({data, headers, status}) => {  
+            res.status(200).send({
+                findsearch:   findsearch                      
+            });   
+            console.log("eintrag geändert und gesendet!!");
+        }, err => {
+            res.status(403).send("notthing ok");
+            console.log("buch anlegen nicht möglich");
+        }) */
 })
