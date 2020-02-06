@@ -77,17 +77,14 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 	
 // serching Friends /to save many times ## addEventListener ##
 	btnFreunde.forEach( (entry) => {
-		entry.addEventListener ( 'click', () =>  {
-			// alert(entry.parentNode.firstElementChild.value);			
+		entry.addEventListener ( 'click', () =>  {					
 
 			let serchingFriends = {     
 				searchtheme:	entry.parentNode.id,
 				searchcontent:  entry.parentNode.firstElementChild.value,				
 				user:           userGesamtIngesamt.value.firstname
-			};
-			
-			console.log(JSON.stringify(serchingFriends));			
-			
+			};		
+
 			meinRequest = newRquest('/welcome/a/:55', JSON.stringify(serchingFriends));
 
 			fetch( meinRequest ).then(
@@ -97,20 +94,10 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 			).catch(
 				err => console.error( err )
 			); 
-
 			
 		});
 		
 	  });
-
-	function validateForm() {
-	/*	matches.forEach(element => {  // short for all inputs
-			if (!element.validity.valid) {
-			//	element.focus(); let fieldsfull=true; return fieldsfull
-			  }			
-		});	*/
-		return false;	
-	}
 
 	function newRquest(routing, bodycontent) {
         return new Request(
@@ -122,7 +109,6 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
         )
 	}
 
-
 	function token(erg){  
 		// local store chainging - for new couchdb _rev  
 		userGesamtIngesamt.value.rev = erg.rev_user;
@@ -130,6 +116,6 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 		window.location.replace("/welcome");  
 	}
 	
-	function error( err ){ console.log(err)}
+	// function error( err ){ console.log(err)}
 
 });

@@ -178,38 +178,18 @@ app.post("/welcome/a/:neighbours", (req, res) => {
     couch.get(dbName, viewUrl).
         then(({data, headers, status}) => { 
             let array2      = data.rows; 
-            let findsearch  = [];             
+            let findsearch  = [], fn, obj;                      
 
-            for(let i= 0; i<= (array2.length-1); i++) {                
-                let obj = array2[i].value.books;
-                // console.log(Object.keys(obj)); 
+            for(let i= 0; i<= (array2.length-1); i++) {  
+               
+                fn  = array2[i].value.firstname;
+                obj = Object.values(array2[i].value.books);
 
-                switch (userbook.searchtheme) {
-                    case 'author' :  // for searching author/(the key)
-                        if( obj.hasOwnProperty(userbook.searchcontent) && array2[i].value.firstname != userbook.user) {  
-                            findsearch.push(array2[i].value.firstname)                         
-                        }
-                       break;
-                    case 'title' :  // for searching title/(the value)
-                        if( Object.values(obj) && array2[i].value.firstname != userbook.user) {  
-                            findsearch.push(array2[i].value.firstname)                         
-                        }                        
-                       break;
-                    case 'genre' :  // for searching title/(the value)
-                        if( Object.values(obj) && array2[i].value.firstname != userbook.user) {  
-                            findsearch.push(array2[i].value.firstname)                         
-                        }                        
-                        break;
-                    default:
-                        console.log("nix thema");
-                 }
-
+                for(let i=0; i < obj.length; i++ ){
+                  //console.log(obj[i][userbook.searchtheme],"obj---obj"); 
+                  findsearch.push(fn);                                     
+                }
             };
-            console.log(findsearch,"dieses buch haben gelesen");
-            
-            res.status(200).send({                
-                xx:       findsearch                         
-            });                  
-            
+            console.log(findsearch,"alle freunde"); 
         }) 
 })
