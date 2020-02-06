@@ -11,9 +11,8 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     let firstname=[];
 
     linkNeueruser.addEventListener ( 'click', () => {
-        let node = document.createElement("input");                
-        let textnode = document.createTextNode("Water"); 
-        node.appendChild(textnode);                             
+        let node = document.createElement("input");               
+                           
         let newUser = document.getElementById("eingabe");
         newUser.insertBefore(node, newUser.childNodes[0]);  
         
@@ -22,6 +21,11 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         node.setAttribute("placeholder", "Vorname");
 
         firstname = document.querySelector('#firstname');
+
+        let neu = document.getElementsByTagName("h4"); 
+        neu.removeChild(neu.childNodes[0]); 
+
+
     });
     
 
