@@ -25,11 +25,7 @@ app.use(cors());
 
 // node-couchdb instance with default options ### here not use ###
 const couch = new NodeCouchDb();
-couch.listDatabases().then( (dbs) => {
-    // console.log(dbs)
-    }, err => {
-    console.log(err)
-});
+
 
 // route handler
 app.get('/',(req,res)=>{
@@ -96,8 +92,7 @@ app.post("/auth", (req, res) => {
                     signed_user: array1[i],
                     token:       token,                          
                     });
-                    forStatus = true; 
-                    console.log(array1[i].value.books,"deine daten");    
+                    forStatus = true;                     
                     break;
                 }  
             }
@@ -174,23 +169,46 @@ app.post("/welcome/a/:neighbours", (req, res) => {
         searchcontent:      req.body.searchcontent,        
         user:               req.body.user        
     };     
+    console.log(userbook.searchtheme,"userbook.searchtheme");
+    
 
     couch.get(dbName, viewUrl).
         then(({data, headers, status}) => { 
             let array2      = data.rows; 
-            let findsearch  = [], findsearchUnique, fn, obj;                      
+            let findsearch  = [], findsearchUnique, fn, obj;  
+            for(let i= 0; i< (array2.length); i++) {  
 
-            for(let i= 0; i<= (array2.length-1); i++) {  
+                console.log(array2[i].value.firstname,"name");
+
+                obj = array2[i].value.books;
+                fn  = userbook.searchtheme; 
+                obj.forEach(element => {
+
+                    console.log(element[fn],"mal schauen");                                       
+
+                });
+
+
                
-                fn  = array2[i].value.firstname;
-                obj = Object.values(array2[i].value.books);
+                               
+                
 
-                for(let i=0; i < obj.length; i++ ){                  
-                  findsearch.push(fn);                                     
+                for(let i=0; i < obj.length; i++ ){  
+                   
+                    
+                   // if(userbook.searchcontent === obj[i][fn]){
+
+                        //console.log(array2[i].value.firstname + " " + userbook.searchcontent + " " + obj[i][fn],"zweite schleife gefunden");
+                   /* } else {
+                        console.log("NICHT gefunden");
+                    } */
+                   // 
+                                    
+                  //findsearch.push(fn);                                     
                 }
             };
 
-            findsearchUnique =[...new Set(findsearch)]
+            // findsearchUnique =[...new Set(findsearch)]
             console.log(findsearchUnique,"alle freunde");             
         }) 
 })
