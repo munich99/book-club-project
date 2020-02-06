@@ -193,9 +193,10 @@ app.post("/welcome/a/:neighbours", (req, res) => {
             };
 
             // findsearchUnique =[...new Set(findsearch)]
-            console.log(findsearch,"alle freunde"); 
+            console.log(userbook.searchtheme,"--thema"); 
             res.status(200).send({
-                findsearch:   findsearch                          
+                findsearchBack:   findsearch,
+                searchthemeBack:  userbook.searchtheme,
                 });            
         })/*.then(({data, headers, status}) => {  
             res.status(200).send({

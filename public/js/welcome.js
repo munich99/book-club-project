@@ -68,7 +68,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
         fetch( meinRequest ).then(
 			erg => erg.json() //console.log(erg)    
         ).then(
-            erg => findsearchBack(erg)     
+            erg => token(erg)     
         ).catch(
             err => console.error( err )
 		); 
@@ -90,7 +90,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 			fetch( meinRequest ).then(
 				erg => erg.json() //console.log(erg)    
 			).then(
-				erg => console.log(erg)    
+				erg => findsearchBack(erg)      
 			).catch(
 				err => console.error( err )
 			); 
@@ -117,8 +117,33 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 	}
 
 	function findsearchBack(erg){
-		console.log(erg, "das kommt zurück bei freunden");
+		console.log(erg.findsearchBack, "das kommt zurück bei freunden");
+		console.log(erg.searchthemeBack, "das kommt Thema");
+
+		let searchBack =  document.getElementById(erg.searchthemeBack);
+	
+		let nodeBack, textnodeBack;
+		nodeBack 	 = document.createElement("p");
+		textnodeBack = document.createTextNode(erg.findsearchBack);
+		nodeBack.appendChild(textnodeBack);	
+		searchBack.appendChild(nodeBack);
 		
+		/*, newElement, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""]; 		
+		userGesamtIngesamt.value.books.forEach(key => {	
+	
+			nodeBack 	 = document.createElement("li");		
+			textnodeBack = document.createTextNode(Object.values(key)[0] + " von "); 
+			node.appendChild(textnode);		
+			
+			for(let i=1; i<=3; i++){			
+				newElement = document.createElement("span");
+				newTextnode = document.createTextNode( Object.values(key)[i] + addmeaning[i] );
+				newElement.appendChild(newTextnode);
+				node.appendChild(newElement)
+			}
+		*/
+
+
 	}
 	
 	// function error( err ){ console.log(err)}
