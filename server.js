@@ -183,32 +183,24 @@ app.post("/welcome/a/:neighbours", (req, res) => {
                 obj = array2[i].value.books;
                 fn  = userbook.searchtheme; 
                 obj.forEach(element => {
-
-                    console.log(element[fn],"mal schauen");                                       
-
+                    if(userbook.searchcontent === element[fn] && userbook.user !== (array2[i].value.firstname) ) {
+                       // console.log("gefunden bei" + array2[i].value.firstname); 
+                        findsearch.push(array2[i].value.firstname)
+                    } else{
+                        console.log("nix gefunden");
+                    }   
                 });
-
-
-               
-                               
-                
-
-                for(let i=0; i < obj.length; i++ ){  
-                   
-                    
-                   // if(userbook.searchcontent === obj[i][fn]){
-
-                        //console.log(array2[i].value.firstname + " " + userbook.searchcontent + " " + obj[i][fn],"zweite schleife gefunden");
-                   /* } else {
-                        console.log("NICHT gefunden");
-                    } */
-                   // 
-                                    
-                  //findsearch.push(fn);                                     
-                }
             };
 
             // findsearchUnique =[...new Set(findsearch)]
-            console.log(findsearchUnique,"alle freunde");             
-        }) 
+            console.log(findsearch,"alle freunde");             
+        }).then(({data, headers, status}) => {  
+            res.status(200).send({
+                rev_user:   data.rev                      
+            });   
+            console.log("eintrag geändert und gesendet!!");
+        }, err => {
+            res.status(403).send("notthing ok");
+            console.log("buch anlegen nicht möglich");
+        })
 })
