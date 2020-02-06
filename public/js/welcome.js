@@ -1,6 +1,7 @@
 'use strict';
 
 let userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
+console.log(userGesamtIngesamt);
 
 
 document.addEventListener ( 'DOMContentLoaded', () => {
@@ -33,12 +34,48 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
 	 });
 
-// new book ##
+	 //btn.removeEventListener("click");
+// new book ##	
 	btn.addEventListener ( 'click', () => {  
-		validateForm();	
+		// --- validate new book
+
+		let fieldsfull=true;
+		let matches = document.getElementById("eingabe").querySelectorAll("input");	
+
+		matches.forEach(element => {  // short for all inputs 			
+			if (!element.validity.valid) {
+				 element.focus(); fieldsfull=false; return
+			}	
+		});
+
+		if(!fieldsfull) return 
+		
+		// -----------
+
+/*
+		function parent_function(){			
+			function child_function(){
+				console.log("Hi from CHILD function")
+			}
+			return child_function
+		}
+
+		child_function = parent_function()
+		
+		child_function()
+	*/
+		// ------------
+
+		
+
+		// console.log(hallo(),"hallo");
+
+		console.log(userGesamtIngesamt,"userGesamtIngesamt");
+		
+		/*
 		let b1 = bookAuthor.value;
 		userGesamtIngesamt.value.books[b1] = bookTitle.value;
-
+		
 		meinRequest = newRquest(( '/welcome/:' + userGesamtIngesamt.id ), JSON.stringify(userGesamtIngesamt));
 
         fetch( meinRequest ).then(
@@ -47,7 +84,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             erg => token(erg)     
         ).catch(
             err => console.error( err )
-		);
+		); */
 	});
 
 	
@@ -76,10 +113,18 @@ document.addEventListener ( 'DOMContentLoaded', () => {
 
 			
 		});
-		console.log(entry)
+		
 	  });
 
-	
+	function validateForm() {
+	/*	matches.forEach(element => {  // short for all inputs
+			if (!element.validity.valid) {
+			//	element.focus(); let fieldsfull=true; return fieldsfull
+			  }			
+		});	*/
+		return false;	
+	}
+
 	function newRquest(routing, bodycontent) {
         return new Request(
             routing,
@@ -90,12 +135,6 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         )
 	}
 
-	function validateForm() {
-		let matches = document.getElementById("eingabe").querySelectorAll("input");		
-		matches.forEach(element => {  // short for all inputs
-			if (!element.validity.valid) element.focus();	
-		});		
-	}
 
 	function token(erg){  
 		// local store chainging - for new couchdb _rev  
