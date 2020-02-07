@@ -89,15 +89,8 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     function token(usertoken){     
         // console.log(usertoken.signed_user.id,"--usertoken--id"); 
         
-        if(usertoken.signed_user.value.rev){
+        if(!usertoken.signed_user.value.rev){
             console.log(usertoken, "gesamt");
-
-            localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
-            // window.location.replace("/welcome");
-
-        }else{ 
-            console.log(usertoken, "erstmal nix");
-            
             
             let abfrage = "/welcome/neueid/:" + usertoken.signed_user.id;
             let meinRequest = newRquest(abfrage);
@@ -106,12 +99,17 @@ document.addEventListener ( 'DOMContentLoaded', () => {
                 erg => erg.json() //console.log(erg)    
             ).then(
                 erg => usertoken.signed_user.value.rev = erg.signed_rev //  tokenNeu(erg) 
+            ).then(
+                localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user)) 
+            ).then(
+                window.location.replace("/welcome") 
             ).catch(
                 err => console.log(err,"mit rev err")
-            )
-
-            console.log(usertoken," alles neu")
-        }        
+            ) 
+        }  else{
+            localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
+            window.location.replace("/welcome");
+        }      
     }
-    function fehler(){alert("nicht möglich")}
+    function fehler(){alert("emailadresse oder kennwort falsch")}
 })

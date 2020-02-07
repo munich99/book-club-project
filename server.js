@@ -221,6 +221,7 @@ app.post("/welcome/neueid/:id", (req, res) => {
 
     }, err => {
         console.log("unten");
+        res.status(403).send("noththing ok");
         // either request error occured
         // ...or err.code=EDOCMISSING if document is missing
         // ...or err.code=EUNKNOWN if statusCode is unexpected
