@@ -54,7 +54,7 @@ app.get('/items', (req,res)=>{
 });
 
 app.get('/items/:id', (req,res)=>{
-    const itemId = req.params.id;
+    let itemId = req.params.id;
     const item   = data.find(_item =>_item.id === itemId);
 
     if(item)res.json(item)
@@ -115,11 +115,11 @@ app.post("/auth", (req, res) => {
                 password:   req.body.password
             }).then(({data, headers, status}) => {
                 // console.log(data, "neuer user möglich!!");
-                let Signed_user = {value:user};
+                let Signed_user = {id:id, value:user};
+               // let Signed_user = {value:user};
                 res.status(200).send({
                     signed_user:    Signed_user,
-                    token:          token, 
-                    id:             id         
+                    token:          token                            
                 });
             }, err => {
                 res.status(403).send({ errorMessage: 'neuer user nicht möglich' });
@@ -208,5 +208,21 @@ app.post("/welcome/a/:neighbours", (req, res) => {
 })
 
 app.post("/welcome/neueid/:id", (req, res) => {  
-    console.log("abfrage angekommen");
+    let itemId      = req.params.id;  
+    let itemIdtrue  = itemId.substr(1);    
+
+    couch.get(dbName, itemIdtrue ).then(({data, headers, status}) => {
+        
+        let array2      = data._rev;
+        console.log(array2,"oben");
+        res.status(200).send({
+            signed_rev: array2                                      
+            });        
+
+    }, err => {
+        console.log("unten");
+        // either request error occured
+        // ...or err.code=EDOCMISSING if document is missing
+        // ...or err.code=EUNKNOWN if statusCode is unexpected
+    });
 });

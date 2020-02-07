@@ -107,10 +107,8 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 				erg => findsearchBack(erg)      
 			).catch(
 				err => console.error( err )
-			); 
-			
-		});
-		
+			); 			
+		});		
 	  });
 
 	function newRquest(routing, bodycontent) {
@@ -141,22 +139,6 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 		textnodeBack = document.createTextNode(erg.findsearchBack);
 		nodeBack.appendChild(textnodeBack);	
 		searchBack.appendChild(nodeBack);
-		
-		/*, newElement, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""]; 		
-		userGesamtIngesamt.value.books.forEach(key => {	
-	
-			nodeBack 	 = document.createElement("li");		
-			textnodeBack = document.createTextNode(Object.values(key)[0] + " von "); 
-			node.appendChild(textnode);		
-			
-			for(let i=1; i<=3; i++){			
-				newElement = document.createElement("span");
-				newTextnode = document.createTextNode( Object.values(key)[i] + addmeaning[i] );
-				newElement.appendChild(newTextnode);
-				node.appendChild(newElement)
-			}
-		*/
-
 
 	}
 	
