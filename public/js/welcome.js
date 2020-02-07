@@ -1,7 +1,7 @@
 'use strict';
 
 let userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
-console.log(userGesamtIngesamt);
+console.log(userGesamtIngesamt,"xx");
 
 
 document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente 
@@ -65,8 +65,16 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 
 		// prüfe die id des neuen users
 		if(userGesamtIngesamt.value.books){ 
+			
+			userGesamtIngesamt.value.books.push(newbookarray);	
+			
+		}else{ 			 
+			userGesamtIngesamt.value.books = [];
 			userGesamtIngesamt.value.books.push(newbookarray);
-			meinRequest = newRquest(( '/welcome/:' + userGesamtIngesamt.id ), JSON.stringify(userGesamtIngesamt));
+
+			console.log(userGesamtIngesamt.value.books, "id nicht da!!!!")
+		}
+		meinRequest = newRquest(( '/welcome/:' + userGesamtIngesamt.id ), JSON.stringify(userGesamtIngesamt));
 
 			fetch( meinRequest ).then(
 				erg => erg.json() //console.log(erg)    
@@ -75,19 +83,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 			).catch(
 				err => console.error( err )
 			); 
-		}else{ 
-
-			// let books = newbookarray;	
-
-			// userGesamtIngesamt.value.books = books;
-			console.log("id nicht da!!!!")
-			
-			
-						
-		}
 	});
-	
-
 	
 // serching Friends /to save many times ## addEventListener ##
 	btnFreunde.forEach( (entry) => {
@@ -129,8 +125,8 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 	}
 
 	function findsearchBack(erg){
-		console.log(erg.findsearchBack, "das kommt zurück bei freunden");
-		console.log(erg.searchthemeBack, "das kommt Thema");
+		console.log(erg.findsearchBack, 	"das kommt zurück bei freunden");
+		console.log(erg.searchthemeBack, 	"das kommt Thema");
 
 		let searchBack =  document.getElementById(erg.searchthemeBack);
 	

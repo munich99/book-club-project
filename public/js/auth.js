@@ -89,8 +89,13 @@ document.addEventListener ( 'DOMContentLoaded', () => {
     function token(usertoken){     
         // console.log(usertoken.signed_user.id,"--usertoken--id"); 
         
-        if(!usertoken.signed_user.value.rev){
-            console.log(usertoken, "gesamt");
+        if(usertoken.signed_user.value.rev){
+            console.log(usertoken.signed_user, "oben");
+
+            localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
+           // window.location.replace("/welcome");
+
+        }else{      
             
             let abfrage = "/welcome/neueid/:" + usertoken.signed_user.id;
             let meinRequest = newRquest(abfrage);
@@ -98,18 +103,23 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             fetch( meinRequest ).then(
                 erg => erg.json() //console.log(erg)    
             ).then(
-                erg => usertoken.signed_user.value.rev = erg.signed_rev //  tokenNeu(erg) 
-            ).then(
-                localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user)) 
-            ).then(
-                window.location.replace("/welcome") 
+                erg => revdazu(erg) //  tokenNeu(erg) 
             ).catch(
                 err => console.log(err,"mit rev err")
-            ) 
-        }  else{
-            localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
-            window.location.replace("/welcome");
-        }      
+            )            
+
+            function revdazu(erg){
+                usertoken.signed_user.value.rev = erg.signed_rev;
+                usertoken.signed_user.value.books = [];
+                console.log(usertoken.signed_user.value);
+                
+                console.log(usertoken.signed_user, "unten");
+                
+                localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
+            }
+
+            console.log(localStorage.getItem("userGesamt")," alles neu")
+        }        
     }
-    function fehler(){alert("emailadresse oder kennwort falsch")}
+    function fehler(){alert("nicht möglich")}
 })
