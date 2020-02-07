@@ -9,33 +9,34 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 	let bookTitle  =  document.querySelector('#book-title');
 	let bookAuthor =  document.querySelector('#book-author');  
 	let bookGenre  =  document.querySelector('#book-genre'); 
-	let bookPart =  document.querySelector('#book-part');
-	
+	let bookPart =  document.querySelector('#book-part');	
 
 	let btn        =  document.querySelector('#btn');
 	let btnFreunde = document.querySelectorAll('.buch_freunde');
-	let meinRequest;	
-	
+	let meinRequest;		
 
 	document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;
 	
-	let textnode, node, newElement, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""]; 		
-	userGesamtIngesamt.value.books.forEach(key => {	
+	let textnode, node, newElement, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""]; 	
+	
+	if(userGesamtIngesamt.value.books){
+		userGesamtIngesamt.value.books.forEach(key => {	
 
-		node 	 = document.createElement("li");		
-		textnode = document.createTextNode(Object.values(key)[0] + " von "); 
-		node.appendChild(textnode);		
-		
-		for(let i=1; i<=3; i++){			
-			newElement = document.createElement("span");
-			newTextnode = document.createTextNode( Object.values(key)[i] + addmeaning[i] );
-			newElement.appendChild(newTextnode);
-			node.appendChild(newElement)
-		}
+			node 	 = document.createElement("li");		
+			textnode = document.createTextNode(Object.values(key)[0] + " von "); 
+			node.appendChild(textnode);		
+			
+			for(let i=1; i<=3; i++){			
+				newElement = document.createElement("span");
+				newTextnode = document.createTextNode( Object.values(key)[i] + addmeaning[i] );
+				newElement.appendChild(newTextnode);
+				node.appendChild(newElement)
+			}
 
-		document.getElementById("deine-buecher-liste").appendChild(node);	
+			document.getElementById("deine-buecher-liste").appendChild(node);	
 
-	 });
+		});
+	}
 	
 // new book ##	
 	btn.addEventListener ( 'click', () => {  
@@ -61,8 +62,18 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 			read:	bookPart.value,
 			genre:	bookGenre.value
 		}
-		userGesamtIngesamt.value.books.push(newbookarray);
-		
+		if(userGesamtIngesamt.value.books){ userGesamtIngesamt.value.books.push(newbookarray)}
+		else{ 
+
+			let books = newbookarray;	
+
+			userGesamtIngesamt.value.books = books;
+			
+			
+						
+		}
+		console.log(( '/welcome/:' + userGesamtIngesamt.id ),"test id");
+		/*
 		meinRequest = newRquest(( '/welcome/:' + userGesamtIngesamt.id ), JSON.stringify(userGesamtIngesamt));
 
         fetch( meinRequest ).then(
@@ -71,8 +82,9 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
             erg => token(erg)     
         ).catch(
             err => console.error( err )
-		); 
+		); */
 	});
+	
 
 	
 // serching Friends /to save many times ## addEventListener ##

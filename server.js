@@ -96,7 +96,6 @@ app.post("/auth", (req, res) => {
                     break;
                 }  
             }
-
             
 
             if(!forStatus) {
@@ -113,9 +112,13 @@ app.post("/auth", (req, res) => {
                 firstname:  req.body.firstname,
                 email:      req.body.email,
                 password:   req.body.password
-            }).then(({data, headers, status}) => {
-                // console.log(data, "neuer user möglich!!");
+            }).then(
+                
+                ({data, headers, status}) => {
+                console.log(data, "neuer user angelegt!");
                 let Signed_user = {value:user};
+                Signed_user.id = id;
+
                 res.status(200).send({
                     signed_user:    Signed_user,
                     token:          token,          

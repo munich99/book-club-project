@@ -36,10 +36,6 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         addLogin = document.querySelector(".main");
         addLogin.appendChild(nodeLogin);
 
-
-        // searchBack.appendChild(nodeBack);
-
-
     });
     
 
@@ -86,12 +82,14 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         )
     }
 
-    function token(usertoken){         
+    function token(usertoken){  
+        console.log(usertoken,"daten vom neuen");
+               
                         
         if(usertoken.token) { 
             localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));                       
 
-            window.location.replace("/welcome");
+            // window.location.replace("/welcome");
         } 
     }
 
