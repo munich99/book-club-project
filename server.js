@@ -178,16 +178,73 @@ app.post("/welcome/a/:neighbours", (req, res) => {
     couch.get(dbName, viewUrl).
         then(({data, headers, status}) => { 
             let array2      = data.rows; 
-            let findsearch  = [], findsearchUnique, fn, obj;  
+            let findsearch  = [], findsearchUnique, fn, obj; 
+
+            let array3;
+            
+            array2.forEach(ele1 => {
+                if(userbook.user !== ele1.value.firstname){
+
+
+                    array3 = ele1.id;
+                   console.log(array3);
+
+                
+
+                   
+
+
+                   
+
+
+
+
+                }
+            })
+            
+            /*
             for(let i= 0; i< (array2.length); i++) {  
 
-                console.log(array2[i].value.firstname,"name");
+                // console.log(array2[i].value.firstname,"name");
+
+                
 
 
                 if(array2[i].value.books){
+                    
                     obj = array2[i].value.books;
                     fn  = userbook.searchtheme; 
                     obj.forEach(element => {
+                        
+                       // console.log(element.title,"+++++++++++++");
+
+                        switch (userbook.searchtheme) {
+                            case 'author' :  // for searching author/(the key)
+                                if( array2[i].value.autor === userbook.searchcontent && array2[i].value.firstname != userbook.user ) {  
+                                    findsearch.push(array2[i].value.firstname)                         
+                                }
+                               break;
+                            case 'title' :  // for searching title/(the value)
+                                if( element.title ==  userbook.searchcontent && userbook.user !== (array2[i].value.firstname) ) {  
+                                    console.log("title##################################");
+                                    findsearch.push(array2[i].value.firstname)     
+                                    
+                                                        
+                                }                        
+                               break;
+                            case 'genre' :  // for searching title/(the value)
+                                if( array2[i].value.genre ===  userbook.searchcontent && array2[i].value.firstname != userbook.user ) {  
+                                    findsearch.push(array2[i].value.firstname)                         
+                                }                        
+                                break;
+                            default:
+                                console.log("nix thema");
+                         }
+
+
+                        
+
+
                         if(userbook.searchcontent === element[fn] && userbook.user !== (array2[i].value.firstname) ) {
                         // console.log("gefunden bei" + array2[i].value.firstname); 
                             findsearch.push(array2[i].value.firstname)
@@ -197,6 +254,8 @@ app.post("/welcome/a/:neighbours", (req, res) => {
                     });
                 }
             };
+
+            */
 
             // findsearchUnique =[...new Set(findsearch)]
             console.log(userbook.searchtheme,"--thema"); 
