@@ -93,7 +93,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             console.log(usertoken.signed_user, "oben");
 
             localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
-           // window.location.replace("/welcome");
+            window.location.replace("/welcome");
 
         }else{      
             
