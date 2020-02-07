@@ -96,6 +96,7 @@ app.post("/auth", (req, res) => {
                     break;
                 }  
             }
+
             
 
             if(!forStatus) {
@@ -112,16 +113,13 @@ app.post("/auth", (req, res) => {
                 firstname:  req.body.firstname,
                 email:      req.body.email,
                 password:   req.body.password
-            }).then(
-                
-                ({data, headers, status}) => {
-                console.log(data, "neuer user angelegt!");
+            }).then(({data, headers, status}) => {
+                // console.log(data, "neuer user möglich!!");
                 let Signed_user = {value:user};
-                Signed_user.id = id;
-
                 res.status(200).send({
                     signed_user:    Signed_user,
-                    token:          token,          
+                    token:          token, 
+                    id:             id         
                 });
             }, err => {
                 res.status(403).send({ errorMessage: 'neuer user nicht möglich' });
@@ -134,6 +132,8 @@ app.post("/auth", (req, res) => {
 
 // new book -- new router
 app.post("/welcome/:id", (req, res) => { 
+    console.log("neues buch anlege");
+    
     const itemId = req.params.id;
     let userbook = {
         id:             itemId.substr(1), // remove : from (/:id)
@@ -183,16 +183,19 @@ app.post("/welcome/a/:neighbours", (req, res) => {
 
                 console.log(array2[i].value.firstname,"name");
 
-                obj = array2[i].value.books;
-                fn  = userbook.searchtheme; 
-                obj.forEach(element => {
-                    if(userbook.searchcontent === element[fn] && userbook.user !== (array2[i].value.firstname) ) {
-                       // console.log("gefunden bei" + array2[i].value.firstname); 
-                        findsearch.push(array2[i].value.firstname)
-                    } else{
-                        console.log("nix gefunden");
-                    }   
-                });
+
+                if(array2[i].value.books){
+                    obj = array2[i].value.books;
+                    fn  = userbook.searchtheme; 
+                    obj.forEach(element => {
+                        if(userbook.searchcontent === element[fn] && userbook.user !== (array2[i].value.firstname) ) {
+                        // console.log("gefunden bei" + array2[i].value.firstname); 
+                            findsearch.push(array2[i].value.firstname)
+                        } else{
+                            console.log("nix gefunden");
+                        }   
+                    });
+                }
             };
 
             // findsearchUnique =[...new Set(findsearch)]
@@ -201,13 +204,9 @@ app.post("/welcome/a/:neighbours", (req, res) => {
                 findsearchBack:   findsearch,
                 searchthemeBack:  userbook.searchtheme,
                 });            
-        })/*.then(({data, headers, status}) => {  
-            res.status(200).send({
-                findsearch:   findsearch                      
-            });   
-            console.log("eintrag geändert und gesendet!!");
-        }, err => {
-            res.status(403).send("notthing ok");
-            console.log("buch anlegen nicht möglich");
-        }) */
+        })
 })
+
+app.post("/welcome/neueid/:id", (req, res) => {  
+    console.log("abfrage angekommen");
+});

@@ -62,27 +62,29 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 			read:	bookPart.value,
 			genre:	bookGenre.value
 		}
-		if(userGesamtIngesamt.value.books){ userGesamtIngesamt.value.books.push(newbookarray)}
-		else{ 
 
-			let books = newbookarray;	
+		// prüfe die id des neuen users
+		if(userGesamtIngesamt.value.books){ 
+			userGesamtIngesamt.value.books.push(newbookarray);
+			meinRequest = newRquest(( '/welcome/:' + userGesamtIngesamt.id ), JSON.stringify(userGesamtIngesamt));
 
-			userGesamtIngesamt.value.books = books;
+			fetch( meinRequest ).then(
+				erg => erg.json() //console.log(erg)    
+			).then(
+				erg => token(erg)     
+			).catch(
+				err => console.error( err )
+			); 
+		}else{ 
+
+			// let books = newbookarray;	
+
+			// userGesamtIngesamt.value.books = books;
+			console.log("id nicht da!!!!")
 			
 			
 						
 		}
-		console.log(( '/welcome/:' + userGesamtIngesamt.id ),"test id");
-		/*
-		meinRequest = newRquest(( '/welcome/:' + userGesamtIngesamt.id ), JSON.stringify(userGesamtIngesamt));
-
-        fetch( meinRequest ).then(
-			erg => erg.json() //console.log(erg)    
-        ).then(
-            erg => token(erg)     
-        ).catch(
-            err => console.error( err )
-		); */
 	});
 	
 

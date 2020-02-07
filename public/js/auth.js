@@ -1,6 +1,10 @@
 'use strict';
+
+
         
 document.addEventListener ( 'DOMContentLoaded', () => {
+
+    
     
     // DOM-Elemente
     let email = document.querySelector('#email');
@@ -82,15 +86,23 @@ document.addEventListener ( 'DOMContentLoaded', () => {
         )
     }
 
-    function token(usertoken){  
-        console.log(usertoken,"daten vom neuen");
-               
-                        
-        if(usertoken.token) { 
-            localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));                       
+    function token(usertoken){     
+        // console.log(usertoken.signed_user.id,"--usertoken--id"); 
+        
+        if(usertoken.signed_user.id){
+            console.log("vorhanden");
+            
 
-            // window.location.replace("/welcome");
-        } 
+
+        }else{
+            console.log(usertoken.id,"nicht vorhanden");
+
+        }
+        
+        localStorage.setItem("userGesamt", JSON.stringify(usertoken.signed_user));
+        window.location.replace("/welcome"); 
+        
+        
     }
 
     function fehler(){alert("nicht möglich")}
