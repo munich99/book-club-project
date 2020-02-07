@@ -165,7 +165,7 @@ app.post("/welcome/:id", (req, res) => {
     })
 });
 
-// search friends -- new router
+// search friends -- new router /////////////////////////////////////////////
 app.post("/welcome/a/:neighbours", (req, res) => {    
    let userbook = {        
         searchtheme:        req.body.searchtheme,
@@ -192,7 +192,7 @@ app.post("/welcome/a/:neighbours", (req, res) => {
                         // console.log("gefunden bei" + array2[i].value.firstname); 
                             findsearch.push(array2[i].value.firstname)
                         } else{
-                            console.log("nix gefunden");
+                           // console.log("nix gefunden");
                         }   
                     });
                 }
