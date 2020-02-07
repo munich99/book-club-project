@@ -1,0 +1,47 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(212, 164, 102);
+}
+
+h1 {
+    text-align: center;
+}
+h3, h4 {
+    margin-bottom: 3px;
+}
+
+.auth { 
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    color: black;
+    padding-bottom: 1em;
+}
+
+.main{
+    margin: 2em auto;
+    display: table;
+    background-color: burlywood;
+    padding: 3px 1em;
+}
+
+input, select, button{
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+div {
+    margin-bottom: 2em;
+}
+
+
+p {
+    margin-top: 3px;
+}
+
+
+
+
+
+  
+  

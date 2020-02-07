@@ -6,51 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>willkommen</title>
     <script language="javascript" type="text/javascript" src="./js/welcome.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
 
 </head>
 <body>
+    <div class="main">
 
-    <h1>Willkommen <span id="willkommen"></span></h1>
+        <h1>Willkommen <span id="willkommen"></span></h1>
 
-    <h3>Deine gelesenen Bücher:</h3>
-    <ul id="deine-buecher-liste"></ul>
+        <h3>Deine gelesenen Bücher:</h3>
+        <ul id="deine-buecher-liste"></ul>
 
-    <h3>Neues Buch empfehlen:</h3>
-    <div id="eingabe">
-        <input id="book-title"  type="text" name="book-title"   placeholder="Buchtitel" required />
-        <input id="book-author" type="text" name="book-author"  placeholder="Author"    required /><br>        
-        <select id="book-genre">            
-            <option value="krimi">Krimi</option>
-            <option value="wissen">Wissen</option>
-            <option value="kochbuch">Kochbuch</option>            
-        </select>        
-        <select id="book-part">            
-            <option value="1">ganz gelesen</option>
-            <option value="2">mehr als Hälfte gelesen</option>
-            <option value="3">ein Viertel gelesen</option>
-            <option value="4">greade angefangen</option>
-        </select><br>
-        <button id="btn">Buch Absenden</button>
-    </div>
+        <h3>Neues Buch empfehlen:</h3>
+        <div id="eingabe">
+            <input id="book-title"  type="text" name="book-title"   placeholder="Buchtitel" required />
+            <input id="book-author" type="text" name="book-author"  placeholder="Author"    required /><br>        
+            
+                <select id="book-genre" style="width:100%;">            
+                    <option value="krimi">Krimi</option>
+                    <option value="wissen">Wissen</option>
+                    <option value="kochbuch">Kochbuch</option>            
+                </select> 
+                   
+            <select id="book-part">            
+                <option value="1">ganz gelesen</option>
+                <option value="2">mehr als Hälfte gelesen</option>
+                <option value="3">ein Viertel gelesen</option>
+                <option value="4">greade angefangen</option>
+            </select><br>
+            <button id="btn">- Buch Absenden -</button>
+        </div>
 
-    <h3>Deine Freunde zum diskutieren</h3>
-    <div id="title">
-        <input  type="text" name="search-title"  placeholder="Buchtitel eingeben"   required />
-        <button class="buch_freunde">nach gemeisamen Büchern suchen</button>
-    </div>
+        <h3>Deine Freunde zum diskutieren</h3>
+        <div id="title">
+            <input  type="text" name="search-title"  placeholder="Buchtitel eingeben"   required />
+            <button class="buch_freunde">- nach gemeisamen Büchern suchen -</button>
+        </div>
 
-    <div id="author">
-        <input  type="text" name="search-author" placeholder="Autor eingeben"      required />
-        <button class="buch_freunde">nach gemeisamen Autoren</button>
-    </div>
-    <div id="genre" >
-        <select id="search-genre">            
-            <option value="krimi">Krimi</option>
-            <option value="wissen">Wissen</option>
-            <option value="kochbuch">Kochbuch</option>            
-        </select>
-        <button class="buch_freunde">nach Genre</button>
+        <div id="author">
+            <input  type="text" name="search-author" placeholder="Autor eingeben"      required />
+            <button class="buch_freunde">- nach gemeisamen Autoren -</button>
+        </div>
+        <div id="genre" >
+            <select id="search-genre">            
+                <option value="krimi">Krimi</option>
+                <option value="wissen">Wissen</option>
+                <option value="kochbuch">Kochbuch</option>            
+            </select>
+            <button class="buch_freunde">- nach Genre -</button>
+        </div>
     </div>
 </body>
 </html>

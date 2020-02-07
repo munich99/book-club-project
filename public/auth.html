@@ -7,19 +7,22 @@
     <title>Document</title>
 
     <script language="javascript" type="text/javascript" src="./js/auth.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
 <body>
+    <div class="main">
+        <h1>Bitte Anmelden</h1>
 
-    <h1>hallo from express</h1>
+        <div id="eingabe">
+            <input  id="email"       type="email"    name="email"    placeholder="email"     required />
+            <input  id="password"    type="password" name="password" placeholder="passwort"  required />
+            <button id="btn">LOG IN</button>
+        </div>
 
-    <div id="eingabe">
-        <input id="email" type="email" name="email" placeholder="email" />
-        <input id="password" type="password" name="password" placeholder="passwort" />
-        <button id="btn">Absenden</button>
-    </div>
-
-    <h1 id="link-neueruser">neu hier? bitte registrieren</h1>   
+        <h4 class="auth" id="link-neueruser">Neu hier? Dann bitte registrieren</h4> 
+         
+    </div> 
     
 </body>
 </html>
