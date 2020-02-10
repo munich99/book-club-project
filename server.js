@@ -197,6 +197,11 @@ app.post("/welcome/a/:neighbours", (req, res) => {
                                     findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
                                 } 
                               break;
+                            case "genre":
+                                if(ele1.value.books[i].genre === userbook.searchcontent){                       
+                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
+                                } 
+                              break;
                             default:
                               // code block
                           }
