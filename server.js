@@ -183,12 +183,26 @@ app.post("/welcome/a/:neighbours", (req, res) => {
             
             alleEintraege.forEach(ele1 => {
                 // console.log(ele1.value.books);
-                if(ele1.value.firstname !== userbook.user ){                   
-                    for(let i=0; i < ele1.value.books.length; i++) {
-                       if(ele1.value.books[i].title === userbook.searchcontent){                       
-                        findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
-                       }                        
-                    }     
+                if(ele1.value.firstname !== userbook.user ){   
+                    for(let i=0; i < ele1.value.books.length; i++) {  
+                        
+                        switch(userbook.searchtheme) {
+                            case "title":
+                                if(ele1.value.books[i].title === userbook.searchcontent){                       
+                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
+                                }      
+                              break;
+                            case "author":
+                                if(ele1.value.books[i].author === userbook.searchcontent){                       
+                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
+                                } 
+                              break;
+                            default:
+                              // code block
+                          }
+
+                  
+                    }  
                 }
             })  
             res.status(200).send({
