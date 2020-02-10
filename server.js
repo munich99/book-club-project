@@ -185,16 +185,12 @@ app.post("/welcome/a/:neighbours", (req, res) => {
                 // console.log(ele1.value.books);
                 if(ele1.value.firstname !== userbook.user ){                   
                     for(let i=0; i < ele1.value.books.length; i++) {
-                       if(ele1.value.books[i].title === userbook.searchcontent){
-                        console.log(ele1.value.books[i].title,(ele1.value.firstname + "username"));
-                        findsearch.push(ele1.value.firstname)
-                       }
-                        
+                       if(ele1.value.books[i].title === userbook.searchcontent){                       
+                        findsearch.push(ele1.value.books[i])
+                       }                        
                     }     
                 }
-            })    
-            
-             
+            })  
             res.status(200).send({
                 findsearchBack:   findsearch,
                 searchthemeBack:  userbook.searchtheme,
