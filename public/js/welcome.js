@@ -124,20 +124,24 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 		window.location.replace("/welcome");  
 	}
 
-	function findsearchBack(erg){
-		console.log(erg.findsearchBack, 	"das kommt zurück bei freunden");
-		console.log(erg.searchthemeBack, 	"das kommt Thema");
+	function findsearchBack(erg){	
+		console.log(erg.searchthemeBack);
 
-		let searchBack =  document.getElementById(erg.searchthemeBack);
-	
-		let nodeBack, textnodeBack;
-		nodeBack 	 = document.createElement("p");
-		textnodeBack = document.createTextNode(erg.findsearchBack);
-		nodeBack.appendChild(textnodeBack);	
-		searchBack.appendChild(nodeBack);
+		let nodeBack, searchBack;		
+		erg.findsearchBack.forEach(ele => {
 
-	}
+			console.log(erg, "alles");
+			
+			searchBack =  document.getElementById(erg.searchthemeBack);					
+				
+			nodeBack 	 = document.createElement("p");
+			nodeBack.innerHTML = (ele[1] + " hat es gelesen. Author " + ele[0].author + " davon gelesen: " + ele[0].read);
+
+			searchBack.appendChild(nodeBack);
+
+		})
+
+	}	
 	
-	// function error( err ){ console.log(err)}
 
 });

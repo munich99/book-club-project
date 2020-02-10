@@ -186,14 +186,14 @@ app.post("/welcome/a/:neighbours", (req, res) => {
                 if(ele1.value.firstname !== userbook.user ){                   
                     for(let i=0; i < ele1.value.books.length; i++) {
                        if(ele1.value.books[i].title === userbook.searchcontent){                       
-                        findsearch.push(ele1.value.books[i])
+                        findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
                        }                        
                     }     
                 }
             })  
             res.status(200).send({
                 findsearchBack:   findsearch,
-                searchthemeBack:  userbook.searchtheme,
+                searchthemeBack:    userbook.searchtheme                
                 });            
         })
 })
