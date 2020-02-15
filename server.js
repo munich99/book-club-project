@@ -180,10 +180,16 @@ app.post("/welcome/a/:neighbours", (req, res) => {
             let alleEintraege      = data.rows; 
             let findsearch  = [], findsearchUnique, fn, obj; 
             
-            
+            let x = 0;
             alleEintraege.forEach(ele1 => {
-                // console.log(ele1.value.books);
-                if(ele1.value.firstname !== userbook.user ){   
+                
+
+               
+                if(ele1.value.books && ele1.value.firstname !== userbook.user){  
+                    
+                    x++
+                    console.log(ele1.value.books, (" " + x + " die nummer"));
+                  
                     for(let i=0; i < ele1.value.books.length; i++) {  
                         
                         switch(userbook.searchtheme) {
