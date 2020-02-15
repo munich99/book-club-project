@@ -178,41 +178,43 @@ app.post("/welcome/a/:neighbours", (req, res) => {
     couch.get(dbName, viewUrl).
         then(({data, headers, status}) => { 
             let alleEintraege      = data.rows; 
-            let findsearch  = [], findsearchUnique, fn, obj; 
-            
-            let x = 0;
+            let findsearch  = [], findsearchUnique, fn, obj;             
+           
             alleEintraege.forEach(ele1 => {
-                
-
                
                 if(ele1.value.books && ele1.value.firstname !== userbook.user){  
-                    
-                    x++
-                    console.log(ele1.value.books, (" " + x + " die nummer"));
-                  
+                    let availableUser = false;
+                                    
                     for(let i=0; i < ele1.value.books.length; i++) {  
+                        // console.log(availableUser,"availableUser");
+                        
                         
                         switch(userbook.searchtheme) {
                             case "title":
                                 if(ele1.value.books[i].title === userbook.searchcontent){                       
-                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
+                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)]);  
+                                    availableUser = true;                                  
                                 }      
                               break;
-                            case "author":
+                            case "author":                               
                                 if(ele1.value.books[i].author === userbook.searchcontent){                       
-                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
+                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)]);
+                                    availableUser = true;   
                                 } 
                               break;
                             case "genre":
-                                if(ele1.value.books[i].genre === userbook.searchcontent){                       
-                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)])
+                                if(ele1.value.books[i].genre === userbook.searchcontent){ 
+                                    findsearch.push([ele1.value.books[i], (ele1.value.firstname)]);
+                                    availableUser = true;
                                 } 
                               break;
                             default:
                               // code block
                           }
-
-                  
+                          console.log(availableUser,"availableUser");
+                          if(availableUser==true) return;
+                           
+                          
                     }  
                 }
             })  
