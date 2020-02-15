@@ -58,7 +58,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 		
 		let newbookarray =  {
 			title:	bookTitle.value,
-			autor:	bookAuthor.value,
+			author:	bookAuthor.value,
 			read:	bookPart.value,
 			genre:	bookGenre.value
 		}
