@@ -1,7 +1,7 @@
 'use strict';
 
 let userGesamtIngesamt = JSON.parse(localStorage.getItem("userGesamt"));
-console.log(userGesamtIngesamt,"xx");
+
 
 
 document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente 
@@ -13,30 +13,7 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 
 	let btn        =  document.querySelector('#btn');
 	let btnFreunde = document.querySelectorAll('.buch_freunde');
-	let meinRequest;		
-
-	document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;
-	
-	let textnode, node, newElement, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""]; 	
-	
-	if(userGesamtIngesamt.value.books){
-		userGesamtIngesamt.value.books.forEach(key => {	
-
-			node 	 = document.createElement("li");		
-			textnode = document.createTextNode(Object.values(key)[0] + " von "); 
-			node.appendChild(textnode);		
-			
-			for(let i=1; i<=3; i++){			
-				newElement = document.createElement("span");
-				newTextnode = document.createTextNode( Object.values(key)[i] + addmeaning[i] );
-				newElement.appendChild(newTextnode);
-				node.appendChild(newElement)
-			}
-
-			document.getElementById("deine-buecher-liste").appendChild(node);	
-
-		});
-	}
+	let meinRequest;	
 	
 // new book ##	
 	btn.addEventListener ( 'click', () => {  
