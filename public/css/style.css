@@ -34,9 +34,13 @@ div {
     margin-bottom: 2em;
 }
 
-
 p {
     margin-top: 3px;
+}
+
+/* add classes to create element */
+.title {
+    font-weight: bold;
 }
 
 
