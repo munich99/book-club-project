@@ -5,14 +5,30 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
 
     document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;
 
-    let textnodeTitle, node, newElementTitle, textnodeTitleZusatz, textnodeAuthor, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""]; 	
+    let textnodeTitle, newElementTitle, textnodeTitleZusatz, textnodeAuthor, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""];
+ 
 	
 	if(userGesamtIngesamt.value.books){
+        let nodeTableTr, nodeTableTh, textnodeHeadersText;	
+        let nodeTableHeaders = ["Titel", "Autor", "gelesen", "genre"]; 
+               
+        nodeTableTr  = document.createElement("tr");
+
+        nodeTableHeaders.forEach(headers => {
+            nodeTableTh  = document.createElement("th");                        
+            textnodeHeadersText = document.createTextNode(headers);
+            nodeTableTh.appendChild(textnodeHeadersText); 
+            nodeTableTr.appendChild(nodeTableTh);
+        });	
+       
+
+       document.getElementById("deine-buecher-liste").appendChild(nodeTableTr);
+
+
+
+/*
 		userGesamtIngesamt.value.books.forEach(key => {	
             console.log();
-            
-
-            node 	 = document.createElement("li");
             
             newElementTitle  = document.createElement("span");
             newElementTitle.className = "title";            
@@ -30,18 +46,12 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
             node.appendChild(textnodeTitleZusatz);
             node.appendChild(textnodeAuthor);
 
-            // node.appendChild(textnodeAuthor);		
-			
-			/* for(let i=1; i<=3; i++){			
-				newElement  = document.createElement("span");
-				newTextnode = document.createTextNode( Object.values(key)[i] + addmeaning[i] );
-				newElement.appendChild(newTextnode);
-				node.appendChild(newElement)
-			} */
+
 
 			document.getElementById("deine-buecher-liste").appendChild(node);	
 
-		});
+        });
+        */
 	}
 
 
