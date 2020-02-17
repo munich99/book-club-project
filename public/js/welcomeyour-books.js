@@ -3,15 +3,12 @@
 
 document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente 
 
-    document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;
-
-    let textnodeTitle, newElementTitle, textnodeTitleZusatz, textnodeAuthor, newTextnode, addmeaning = ["", ", ", " gelesen, Genre: ", ""];
- 
+    document.getElementById("willkommen").innerHTML = userGesamtIngesamt.value.firstname;  
 	
 	if(userGesamtIngesamt.value.books){
         let nodeTableTr, nodeTableTh, textnodeHeadersText;	
         let nodeTableHeaders = ["Titel", "Autor", "gelesen", "genre"]; 
-               
+            
         nodeTableTr  = document.createElement("tr");
 
         nodeTableHeaders.forEach(headers => {
@@ -19,39 +16,40 @@ document.addEventListener ( 'DOMContentLoaded', () => {	// DOM-Elemente
             textnodeHeadersText = document.createTextNode(headers);
             nodeTableTh.appendChild(textnodeHeadersText); 
             nodeTableTr.appendChild(nodeTableTh);
-        });	
+        });	       
+
+        document.getElementById("deine-buecher-liste").appendChild(nodeTableTr);
+
+
+        let nodeTableTd, nodeTableTdTitle, nodeTableTdAuthor, nodeTableTdRead;
+        userGesamtIngesamt.value.books.forEach(book => {	
+
+            nodeTableTr  = document.createElement("tr");
+                        
+            nodeTableTd  = document.createElement("td");                        
+            nodeTableTdTitle = document.createTextNode(book.title);
+            nodeTableTd.appendChild(nodeTableTdTitle);
+            nodeTableTr.appendChild(nodeTableTd);
+            
+            nodeTableTd  = document.createElement("td");
+            nodeTableTdAuthor = document.createTextNode(book.author);
+            nodeTableTd.appendChild(nodeTableTdAuthor);
+            nodeTableTr.appendChild(nodeTableTd);
+
+            nodeTableTd  = document.createElement("td");
+            nodeTableTdRead = document.createTextNode(book.read);
+            nodeTableTd.appendChild(nodeTableTdRead);
+            nodeTableTr.appendChild(nodeTableTd);
+           
+
+
+            
+
+
+            document.getElementById("deine-buecher-liste").appendChild(nodeTableTr);	
+
+            });
        
-
-       document.getElementById("deine-buecher-liste").appendChild(nodeTableTr);
-
-
-
-/*
-		userGesamtIngesamt.value.books.forEach(key => {	
-            console.log();
-            
-            newElementTitle  = document.createElement("span");
-            newElementTitle.className = "title";            
-            textnodeTitle = document.createTextNode(key.title);
-            newElementTitle.appendChild(textnodeTitle);   
-            //textnodeAuthor = document.createTextNode(key.author); 
-            console.log(key);
-            
-
-            textnodeTitleZusatz = document.createTextNode(" von ");
-            textnodeAuthor = document.createTextNode(key.author);            
-            
-            
-            node.appendChild(newElementTitle);
-            node.appendChild(textnodeTitleZusatz);
-            node.appendChild(textnodeAuthor);
-
-
-
-			document.getElementById("deine-buecher-liste").appendChild(node);	
-
-        });
-        */
 	}
 
 
