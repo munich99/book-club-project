@@ -114,12 +114,6 @@ app.post("/auth", (req, res) => {
             }).then(({data, headers, status}) => {
                 console.log(data, "neuer user möglich!!");
                 let Signed_user = data // {id:id, value:user};
-                console.log(Signed_user, "was ist der unterschied?");
-               // wir basteln hier den neuen User !!!!!
-
-
-
-               // ende neuen user
                 res.status(200).send({
                     signed_user:    Signed_user,
                     token:          token                            

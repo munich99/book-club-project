@@ -78,8 +78,8 @@ document.addEventListener ( 'DOMContentLoaded', () => {
                 method: 'post',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({                            
-                    email:  ( email.value ),
-                    password:  ( password.value ),
+                    email:      ( email.value ),
+                    password:   ( password.value ),
                     firstname:  ( firstname.value )                   
                 })
             }
@@ -97,12 +97,13 @@ document.addEventListener ( 'DOMContentLoaded', () => {
             window.location.replace("/welcome");
         }else{           
             let neuerUser = {
-                id:usertoken.signed_user.id,
-                key:usertoken.signed_user.id,
+                id:     usertoken.signed_user.id,
+                key:    usertoken.signed_user.id,
                 value:{
-                    firstname: firstname.value,
-                    email:  email.value,
-                    rev: usertoken.signed_user.rev
+                    firstname:  firstname.value,
+                    email:      email.value,
+                    password:   password.value,
+                    rev:        usertoken.signed_user.rev
                 }
             }     
             localStorage.setItem("userGesamt", JSON.stringify(neuerUser));
