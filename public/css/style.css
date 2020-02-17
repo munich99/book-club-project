@@ -39,6 +39,10 @@ p {
 }
 
 /* add classes to create element */
+#deine-buecher-liste{
+    width: 100%;
+    text-align: left;
+}
 
 
 
